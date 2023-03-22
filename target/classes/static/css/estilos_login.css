@@ -1,0 +1,105 @@
+/*
+Created on : 3 mar 2023, 3:06:43
+Author : Alfred
+*/
+
+body {
+  background: #28645D;
+  background-size: cover;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#img {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  left: 44.5%;
+  top: 13%;
+}
+
+input[name="username"] {
+  position: absolute;
+  width: 400px;
+  height: 80px;
+  left: 50%;
+  top: 37%;
+  transform: translate(-50%, -50%);
+  background: #FFFFFF;
+  border-radius: 30px;
+}
+
+input[type="text"] {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+  color: rgba(182, 178, 178, 0.64);
+}
+
+input[name="password"] {
+  position: absolute;
+  width: 400px;
+  height: 80px;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  background: #FFFFFF;
+  border-radius: 30px;
+}
+
+input[type="password"] {
+  position: absolute;
+  left: 50%;
+  top: 57%;
+  transform: translate(-50%, -50%);
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+  color: rgba(182, 178, 178, 0.64);
+}
+
+button[type="submit"] {
+  position: absolute;
+  width: 200px;
+  height: 80px;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  background: #FFFFFF;
+  border-radius: 30px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 30px;
+  color: #28645D;
+}
+
+#p {
+  position: absolute;
+  width: 350px;
+  height: 50px;
+  left: 55.5%;
+  top: 87%;
+  transform: translate(-50%, -50%);
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  font-size: 24px;
+  line-height: 30px;
+  color: rgba(182, 178, 178, 0.64);
+}

@@ -1,0 +1,82 @@
+
+body{
+    background-color: white;
+    transition: all 0.3s ease-out;
+}
+
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background-color: #576787;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    display: flex; /* para alinear el botón del menú en el centro vertical */
+    align-items: center; /* para alinear verticalmente los elementos */
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* para ocultar la lista de opciones del menú */
+}
+
+.menu li {
+    margin: 0;
+}
+
+.menu li a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px solid #fff;
+}
+
+.menu li a:hover {
+    background-color: #CCC9C9;
+}
+
+.abierto {
+    position: fixed;
+
+    left: -30%;
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    justify-content: center;
+    z-index: 999;
+    transition: all 0.3s ease-out;
+}
+
+.linea{
+    border-bottom: 1px solid black;
+}
+
+.content {
+    margin-top: 70px; /* para dejar espacio debajo de la toolbar */
+    padding: 20px;
+
+}
+
+.menu-btn{
+    height: 5em;
+    width: 5em;
+    align-items: center;
+    margin-left: 1em;
+    border-radius: 10px;
+    border: none;
+    cursor:pointer;
+    background:none;
+}
+
+.btn-img{
+    height: 3em;
+    width: 4em;
+
+}
+

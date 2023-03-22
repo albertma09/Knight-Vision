@@ -1,0 +1,3 @@
+com\ourERP\knightvision\SpringBoot\BasicApplication.class
+com\ourERP\knightvision\service\UserDetailsServiceImpl.class
+com\ourERP\knightvision\config\WebSecurityConfig.class
