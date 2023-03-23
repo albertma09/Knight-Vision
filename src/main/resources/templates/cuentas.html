@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Cuentas</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/cuentas.css" rel="stylesheet" type="text/css"/>
+
+    </head>
+    <body>
+        <div class="toolbar">
+            <button class="menu-btn" onclick="toggleMenu()">Menu</button>
+            <h1>Cuentas</h1>
+            <button class="agnadir-btn" onclick="toggleMenu()">Añadir cuenta</button>
+        </div>
+
+        <div class="abierto">
+            <ul class="menu">
+                <li><a href="#">Registro Usuarios</a></li>
+                <li><a href="#">Contabilidad</a></li>
+                <li><a href="#">Eventos</a></li>
+                <li><a href="#">Suscripción</a></li>
+                <li class="linea"><a href="#">Información</a></li>
+                <li><a href="#">Inicio</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <p>hola que tal</p>
+        </div>
+        <script>
+            function toggleMenu() {
+                var menu = document.querySelector('.abierto');
+                if (menu.style.display == 'block') {
+                    menu.style.display = 'none';
+                } else {
+                    menu.style.display = 'block';
+                }
+            }
+        </script>
+    </body>
+</html>
