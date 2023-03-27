@@ -19,5 +19,10 @@ public class HomeController {
     public String irAOtraPagina() {
         return "registrousers"; 
     }
+    
+    @GetMapping("/eventos")
+    public String eventos(){
+        return "eventos";
+    }
 }
 
