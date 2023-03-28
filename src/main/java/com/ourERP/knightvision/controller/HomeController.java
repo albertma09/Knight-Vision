@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
     
     @GetMapping("/registrousers")
-    public String irAOtraPagina() {
+    public String irARegistroUsers() {
         return "registrousers"; 
     }
     
     @GetMapping("/eventos")
-    public String eventos(){
+    public String irAEventos(){
         return "eventos";
     }
 }
