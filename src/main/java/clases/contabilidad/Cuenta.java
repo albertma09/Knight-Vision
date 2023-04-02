@@ -4,13 +4,8 @@
  */
 package clases.contabilidad;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.io.Serializable;
 
 /**
  *
@@ -19,23 +14,23 @@ import jakarta.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "bankaccount")
-public class Cuenta {
+public class Cuenta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id //defineix la clau primaria de la taula
     @GeneratedValue(strategy = GenerationType.IDENTITY) //defineix que el id és autogenerat per la base de dades i és de tipus AI (autoincrement)
     private int bankaccountid;
-    private String accountnumber;
     private String bank;
-    private int idbankstatement;
+    private String accountnumber;
 
     public Cuenta() {
     }
 
-    public Cuenta(int bankaccountid, String accountnumber, String bank, int idbankstatement) {
+    public Cuenta(int bankaccountid, String accountnumber, String bank) {
         this.bankaccountid = bankaccountid;
         this.accountnumber = accountnumber;
         this.bank = bank;
-        this.idbankstatement = idbankstatement;
     }
 
     public int getBankaccountid() {
@@ -62,17 +57,9 @@ public class Cuenta {
         this.bank = bank;
     }
 
-    public int getIdbankstatement() {
-        return idbankstatement;
-    }
-
-    public void setIdbankstatement(int idbankstatement) {
-        this.idbankstatement = idbankstatement;
-    }
-
     @Override
     public String toString() {
-        return "Cuenta{" + "bankaccountid=" + bankaccountid + ", accountnumber=" + accountnumber + ", bank=" + bank + ", idbankstatement=" + idbankstatement + '}';
+        return "Cuenta{" + "bankaccountid=" + bankaccountid + ", bank=" + bank + ", accountnumber=" + accountnumber + '}';
     }
 
 }

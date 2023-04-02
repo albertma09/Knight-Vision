@@ -3,15 +3,34 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
+<html xmls:th="http://www.thymeleaf.org">
     <head>
         <title>Cuentas</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/cuentas.css" rel="stylesheet" type="text/css"/>
 
     </head>
     <body>
+        <div th:if="${cuentas != null and !cuentas.empty}">
+            <p>hola</p>
+            <table border ="2">
+                <tr>
+                    <th>id cuenta </th>
+                    <th>banco </th>
+                    <th>número de cuenta </th>
+                    <th>Cambiar</th>
+                    <th>Borrar </th>
+                </tr>    
+                <tr th:each="cuenta: ${cuentas}">
+                    <td th:text="${cuenta.bankaccountid}"> Muestra id </td> 
+                    <td th:text="${cuenta.bank}"> Muestra banco </td>
+                    <td th:text="${cuenta.accountnumber}"> Muestra número de cuenta </td>
+                    <td> <a th:href="@{/cambiar/} + ${cuenta.bankaccountid}" th:text="Cambiar"/> </td><!-- comment -->
+                    <td> <a th:href="@{/borrar/} + ${cuenta.bankaccountid}" th:text="Borrar"/> </td><!-- comment -->
+
+                </tr>
+            </table>
+        </div>
         <div class="toolbar">
             <button class="menu-btn" onclick="toggleMenu()">Menu</button>
             <h1>Cuentas</h1>

@@ -4,13 +4,7 @@
  */
 package clases.contabilidad;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 /**
@@ -28,5 +22,52 @@ public class Extracto {
     private Timestamp startdate;
     private Timestamp enddate;
     private double balance;
+
+    public Extracto() {
+    }
+
+    public Extracto(int bankstatementid, Timestamp startdate, Timestamp enddate, double balance) {
+        this.bankstatementid = bankstatementid;
+        this.startdate = startdate;
+        this.enddate = enddate;
+        this.balance = balance;
+    }
+
+    public int getBankstatementid() {
+        return bankstatementid;
+    }
+
+    public void setBankstatementid(int bankstatementid) {
+        this.bankstatementid = bankstatementid;
+    }
+
+    public Timestamp getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(Timestamp startdate) {
+        this.startdate = startdate;
+    }
+
+    public Timestamp getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(Timestamp enddate) {
+        this.enddate = enddate;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    @Override
+    public String toString() {
+        return "Extracto{" + "bankstatementid=" + bankstatementid + ", startdate=" + startdate + ", enddate=" + enddate + ", balance=" + balance + '}';
+    }
 
 }
