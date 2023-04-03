@@ -22,10 +22,9 @@ public class ControladorCuenta {
     @Autowired
     private CuentaService cuentaService;
 
-    @GetMapping("/")
+    @GetMapping("/cuentas")
     public String comienzo(Model model) {
 
-        //String personas = personaDao.findAll();
         List<Cuenta> cuentas = cuentaService.listCuentas();
         model.addAttribute("cuentas", cuentas);
 

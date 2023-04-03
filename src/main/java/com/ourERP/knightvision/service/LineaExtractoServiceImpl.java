@@ -27,7 +27,7 @@ public class LineaExtractoServiceImpl implements LineaExtractoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<LineaExtracto> listLineaExtractos() {
+    public List<LineaExtracto> listLineasExtracto() {
         return (List<LineaExtracto>) lineaExtractoDAO.findAll();
     }
 

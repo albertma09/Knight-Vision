@@ -5,6 +5,7 @@
 package clases.contabilidad;
 
 import jakarta.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -14,23 +15,25 @@ import java.sql.Timestamp;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "bankstatement")
-public class Extracto {
+public class Extracto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id //defineix la clau primaria de la taula
     @GeneratedValue(strategy = GenerationType.IDENTITY) //defineix que el id és autogenerat per la base de dades i és de tipus AI (autoincrement)
     private int bankstatementid;
     private Timestamp startdate;
     private Timestamp enddate;
-    private double balance;
+    private int bankaccountid;
 
     public Extracto() {
     }
 
-    public Extracto(int bankstatementid, Timestamp startdate, Timestamp enddate, double balance) {
+    public Extracto(int bankstatementid, Timestamp startdate, Timestamp enddate, int bankaccountid) {
         this.bankstatementid = bankstatementid;
         this.startdate = startdate;
         this.enddate = enddate;
-        this.balance = balance;
+        this.bankaccountid = bankaccountid;
     }
 
     public int getBankstatementid() {
@@ -57,17 +60,9 @@ public class Extracto {
         this.enddate = enddate;
     }
 
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     @Override
     public String toString() {
-        return "Extracto{" + "bankstatementid=" + bankstatementid + ", startdate=" + startdate + ", enddate=" + enddate + ", balance=" + balance + '}';
+        return "Extracto{" + "bankstatementid=" + bankstatementid + ", startdate=" + startdate + ", enddate=" + enddate + ", bankaccountid=" + bankaccountid + '}';
     }
 
 }

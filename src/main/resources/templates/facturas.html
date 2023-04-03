@@ -9,28 +9,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-
     </head>
     <body>
+        <header th:insert="~{/navbar.html :: header}"> </header>
         <div class="toolbar">
-            <button class="menu-btn" onclick="toggleMenu()">Menu</button>
             <h1>Facturas</h1>
-            <button class="agnadir-btn" onclick="toggleMenu()">Añadir factura</button>
         </div>
+        <div th:if="${facturas != null and !facturas.empty}" class="container-fluid">
+            <table class="table table-striped">
+                <tr>
+                    <th>id factura </th>
+                    <th>descripción </th>
+                    <th>fecha </th>
+                    <th>emisor </th>
+                    <th>total </th>
+                    <th>Cambiar</th>
+                    <th>Borrar </th>
+                </tr>    
+                <tr th:each="factura: ${facturas}">
+                    <td th:text="${factura.billid}"> Muestra id </td> 
+                    <td th:text="${factura.concept}"> Muestra descripcion </td>
+                    <td th:text="${factura.date}"> Muestra fecha </td>
+                    <td th:text="${factura.emisor}"> Muestra emisor </td>
+                    <td th:text="${factura.amount}"> Muestra total </td>
+                    <td> <a th:href="@{/cambiar/} + ${factura.billid}" th:text="Cambiar"/> </td><!-- comment -->
+                    <td> <a th:href="@{/borrar/} + ${factura.billid}" th:text="Borrar"/> </td><!-- comment -->
 
-        <div class="abierto">
-            <ul class="menu">
-                <li><a href="#">Registro Usuarios</a></li>
-                <li><a href="#">Contabilidad</a></li>
-                <li><a href="#">Eventos</a></li>
-                <li><a href="#">Suscripción</a></li>
-                <li class="linea"><a href="#">Información</a></li>
-                <li><a href="#">Inicio</a></li>
-            </ul>
-        </div>
-        <div class="content">
-            <p>hola que tal</p>
+                </tr>
+            </table>
         </div>
         <script>
             function toggleMenu() {

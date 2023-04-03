@@ -5,6 +5,7 @@
 package clases.contabilidad;
 
 import jakarta.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -14,25 +15,27 @@ import java.sql.Timestamp;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "bill")
-public class Factura {
+public class Factura implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id //defineix la clau primaria de la taula
     @GeneratedValue(strategy = GenerationType.IDENTITY) //defineix que el id és autogenerat per la base de dades i és de tipus AI (autoincrement)
     private int billid;
     private String concept;
-    private float amount;
-    private float iva;
     private Timestamp date;
+    private String emisor;
+    private float amount;
 
     public Factura() {
     }
 
-    public Factura(int billid, String concept, float amount, float iva, Timestamp date) {
+    public Factura(int billid, String concept, Timestamp date, String emisor, float amount) {
         this.billid = billid;
         this.concept = concept;
-        this.amount = amount;
-        this.iva = iva;
         this.date = date;
+        this.emisor = emisor;
+        this.amount = amount;
     }
 
     public int getBillid() {
@@ -59,14 +62,6 @@ public class Factura {
         this.amount = amount;
     }
 
-    public float getIva() {
-        return iva;
-    }
-
-    public void setIva(float iva) {
-        this.iva = iva;
-    }
-
     public Timestamp getDate() {
         return date;
     }
@@ -77,7 +72,7 @@ public class Factura {
 
     @Override
     public String toString() {
-        return "Factura{" + "billid=" + billid + ", concept=" + concept + ", amount=" + amount + ", iva=" + iva + ", date=" + date + '}';
+        return "Factura{" + "billid=" + billid + ", concept=" + concept + ", date=" + date + ", emisor=" + emisor + ", amount=" + amount + '}';
     }
 
 }

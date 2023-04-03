@@ -17,6 +17,8 @@ import java.util.Date;
 @Table(name = "bankstatementdetails")
 public class LineaExtracto implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @EmbeddedId
     private LineaExtractoPK lineaExtractoPK;
 

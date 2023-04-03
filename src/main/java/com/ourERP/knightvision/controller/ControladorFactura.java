@@ -4,7 +4,13 @@
  */
 package com.ourERP.knightvision.controller;
 
+import clases.contabilidad.Factura;
+import com.ourERP.knightvision.service.FacturaService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  *
@@ -13,15 +19,15 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class ControladorFactura {
 
-//    @Autowired
-//    private FacturaService facturaService;
-//
-//    @GetMapping("/facturas")
-//    public String comienzo(Model model) {
-//
-//        String personas = personaDao.findAll();
-//        List<Factura> personas = servicioFactura.listPersonas();
-//        model.addAttribute("personas", personas);
-//        return "facturas";
-//    }
+    @Autowired
+    private FacturaService facturaService;
+
+    @GetMapping("/facturas")
+    public String comienzo(Model model) {
+
+        List<Factura> facturas = facturaService.listFacturas();
+        model.addAttribute("facturas", facturas);
+
+        return "facturas";
+    }
 }

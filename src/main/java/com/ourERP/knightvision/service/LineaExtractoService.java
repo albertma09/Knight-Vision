@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface LineaExtractoService {
 
-    public List<LineaExtracto> listLineaExtractos();
+    public List<LineaExtracto> listLineasExtracto();
 
     public void salvar(LineaExtracto lineaExtracto);
 

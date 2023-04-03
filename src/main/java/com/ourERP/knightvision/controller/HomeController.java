@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  * @author Alfred
  */
-
 @Controller
 public class HomeController {
-    
+
     @GetMapping("/registrousers")
     public String irAOtraPagina() {
-        return "registrousers"; 
+        return "registrousers";
+    }
+
+    @GetMapping("/contabilidad")
+    public String irAContabilidad() {
+        return "contabilidad";
     }
 }
-
