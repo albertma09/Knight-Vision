@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  * @author Alfred
  */
-
 @Controller
 public class HomeController {
-    
+
     @GetMapping("/registrousers")
     public String irARegistroUsers(Model model) {
         model.addAttribute("nav","Registro");
@@ -39,3 +38,8 @@ public class HomeController {
     }
 }
 
+    @GetMapping("/contabilidad")
+    public String irAContabilidad() {
+        return "contabilidad";
+    }
+}
