@@ -23,7 +23,7 @@ public class Factura implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //defineix que el id és autogenerat per la base de dades i és de tipus AI (autoincrement)
     private int billid;
     private String concept;
-    private Timestamp date;
+    private Timestamp billdate;
     private String emisor;
     private float amount;
 
@@ -33,7 +33,7 @@ public class Factura implements Serializable {
     public Factura(int billid, String concept, Timestamp date, String emisor, float amount) {
         this.billid = billid;
         this.concept = concept;
-        this.date = date;
+        this.billdate = date;
         this.emisor = emisor;
         this.amount = amount;
     }
@@ -62,17 +62,25 @@ public class Factura implements Serializable {
         this.amount = amount;
     }
 
-    public Timestamp getDate() {
-        return date;
+    public Timestamp getBilldate() {
+        return billdate;
     }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
+    public void setBilldate(Timestamp billdate) {
+        this.billdate = billdate;
+    }
+
+    public String getEmisor() {
+        return emisor;
+    }
+
+    public void setEmisor(String emisor) {
+        this.emisor = emisor;
     }
 
     @Override
     public String toString() {
-        return "Factura{" + "billid=" + billid + ", concept=" + concept + ", date=" + date + ", emisor=" + emisor + ", amount=" + amount + '}';
+        return "Factura{" + "billid=" + billid + ", concept=" + concept + ", date=" + billdate + ", emisor=" + emisor + ", amount=" + amount + '}';
     }
 
 }

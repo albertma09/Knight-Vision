@@ -23,14 +23,16 @@ public class Cuenta implements Serializable {
     private int bankaccountid;
     private String bank;
     private String accountnumber;
+    private float panoja;
 
     public Cuenta() {
     }
 
-    public Cuenta(int bankaccountid, String accountnumber, String bank) {
+    public Cuenta(int bankaccountid, String bank, String accountnumber, float panoja) {
         this.bankaccountid = bankaccountid;
-        this.accountnumber = accountnumber;
         this.bank = bank;
+        this.accountnumber = accountnumber;
+        this.panoja = panoja;
     }
 
     public int getBankaccountid() {
@@ -57,9 +59,17 @@ public class Cuenta implements Serializable {
         this.bank = bank;
     }
 
+    public float getPanoja() {
+        return panoja;
+    }
+
+    public void setPanoja(float panoja) {
+        this.panoja = panoja;
+    }
+
     @Override
     public String toString() {
-        return "Cuenta{" + "bankaccountid=" + bankaccountid + ", bank=" + bank + ", accountnumber=" + accountnumber + '}';
+        return "Cuenta{" + "bankaccountid=" + bankaccountid + ", bank=" + bank + ", accountnumber=" + accountnumber + ", panoja=" + panoja + '}';
     }
 
 }

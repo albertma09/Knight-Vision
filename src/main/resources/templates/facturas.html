@@ -3,7 +3,7 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
+<html xmls:th="http://www.thymeleaf.org">
     <head>
         <title>Facturas</title>
         <meta charset="UTF-8">
@@ -29,7 +29,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <tr th:each="factura: ${facturas}">
                     <td th:text="${factura.billid}"> Muestra id </td> 
                     <td th:text="${factura.concept}"> Muestra descripcion </td>
-                    <td th:text="${factura.date}"> Muestra fecha </td>
+                    <td th:text="${factura.billdate}"> Muestra fecha </td>
                     <td th:text="${factura.emisor}"> Muestra emisor </td>
                     <td th:text="${factura.amount}"> Muestra total </td>
                     <td> <a th:href="@{/cambiar/} + ${factura.billid}" th:text="Cambiar"/> </td><!-- comment -->

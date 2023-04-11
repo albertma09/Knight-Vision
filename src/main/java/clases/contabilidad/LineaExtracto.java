@@ -22,18 +22,20 @@ public class LineaExtracto implements Serializable {
     @EmbeddedId
     private LineaExtractoPK lineaExtractoPK;
 
-    private Date date;
+    private Date eventdate;
     private String thirdparty;
     private float amount;
+    private String pagoocobro;
 
     public LineaExtracto() {
     }
 
-    public LineaExtracto(LineaExtractoPK lineaExtractoPK, Date date, String thirdparty, float amount) {
+    public LineaExtracto(LineaExtractoPK lineaExtractoPK, Date eventdate, String thirdparty, float amount, String pagoocobro) {
         this.lineaExtractoPK = lineaExtractoPK;
-        this.date = date;
+        this.eventdate = eventdate;
         this.thirdparty = thirdparty;
         this.amount = amount;
+        this.pagoocobro = pagoocobro;
     }
 
     public LineaExtractoPK getLineaExtractoPK() {
@@ -44,12 +46,12 @@ public class LineaExtracto implements Serializable {
         this.lineaExtractoPK = lineaExtractoPK;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getEventdate() {
+        return eventdate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setEventdate(Date eventdate) {
+        this.eventdate = eventdate;
     }
 
     public String getThirdparty() {
@@ -68,9 +70,17 @@ public class LineaExtracto implements Serializable {
         this.amount = amount;
     }
 
+    public String getPagoocobro() {
+        return pagoocobro;
+    }
+
+    public void setPagoocobro(String pagoocobro) {
+        this.pagoocobro = pagoocobro;
+    }
+
     @Override
     public String toString() {
-        return "LineaExtracto{" + "lineaExtractoPK=" + lineaExtractoPK + ", date=" + date + ", thirdparty=" + thirdparty + ", amount=" + amount + '}';
+        return "LineaExtracto{" + "lineaExtractoPK=" + lineaExtractoPK + ", eventdate=" + eventdate + ", thirdparty=" + thirdparty + ", amount=" + amount + ", pagoocobro=" + pagoocobro + '}';
     }
 
 }

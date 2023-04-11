@@ -7,6 +7,7 @@ package com.ourERP.knightvision.service;
 import clases.contabilidad.Factura;
 import com.ourERP.knightvision.DAO.FacturaDAO;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,15 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Usuario
  */
 @Service("FacturaService")
+@Slf4j
 public class FacturaServiceImpl implements FacturaService {
 
-    private final FacturaDAO facturaDAO;
-
     @Autowired
-    public FacturaServiceImpl(FacturaDAO facturaDAO) {
-        this.facturaDAO = facturaDAO;
-    }
+    private final FacturaDAO facturaDAO = null;
 
+//    @Autowired
+//    public FacturaServiceImpl(FacturaDAO facturaDAO) {
+//        this.facturaDAO = facturaDAO;
+//    }
     @Override
     @Transactional(readOnly = true)
     public List<Factura> listFacturas() {

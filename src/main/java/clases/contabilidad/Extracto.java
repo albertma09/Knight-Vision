@@ -60,6 +60,14 @@ public class Extracto implements Serializable {
         this.enddate = enddate;
     }
 
+    public int getBankaccountid() {
+        return bankaccountid;
+    }
+
+    public void setBankaccountid(int bankaccountid) {
+        this.bankaccountid = bankaccountid;
+    }
+
     @Override
     public String toString() {
         return "Extracto{" + "bankstatementid=" + bankstatementid + ", startdate=" + startdate + ", enddate=" + enddate + ", bankaccountid=" + bankaccountid + '}';
