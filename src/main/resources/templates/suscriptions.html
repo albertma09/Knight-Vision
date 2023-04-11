@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/css/estilos_tablas.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <style>
+            .div1, .div2 {
+              display: inline-block;
+              width: 47%;
+            }
+
+            .div1 {
+              float: left;
+            }
+
+            .div2 {
+              margin-left: 6%;
+            }
+            .toolbar-title {
+                font-size: 24px;
+                background-color: lightgray;
+                margin: 0;
+                height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <header th:include="/navbar.html :: header"> </header>
+        <div id="mySuscriptionsTable" class="div1">
+            <h2 class="toolbar-title">Suscripciones</h2>
+            
+        </div>
+        <div id="myPlayersTable" class="div2">
+            <h2 class="toolbar-title">Jugadores de la suscripcion seleccionada</h2>
+        </div>
+
+        <script th:inline="javascript">
+            const createSuscriptionPlayersTable = (array) => {
+                let table = document.createElement("table");
+                table.classList.add("table");
+                table.classList.add("table-striped");
+                table.setAttribute("id", "suscPlayersTable");
+
+                let header = table.createTHead();
+                let row = header.insertRow(0);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                cell1.setAttribute("scope", "col");
+                cell2.setAttribute("scope", "col");
+                cell1.innerHTML = "<b>IdPlayer</b>";
+                cell2.innerHTML = "<b>IdSuscription</b>";
+
+                for (let i = 0; i < array.length; i++) {
+                    let row = table.insertRow(i+1);
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    cell1.innerHTML = `<b>${array[i].idplayer}</b>`;
+                    cell2.innerHTML = array[i].idsuscription;
+                }
+
+                document.getElementById("myPlayersTable").appendChild(table);
+            }
+            
+            const miFuncion = (tr) => {
+                var elem = document.getElementById('suscPlayersTable');
+                if(elem) elem.parentNode.removeChild(elem);
+                
+                let id = tr.children[0].innerHTML
+                let array = [[${playersSusc}]].filter(p => p.idsuscription == id)
+                createSuscriptionPlayersTable(array)
+            }
+            
+            const createSuscriptionTable = () => {
+                let array = [[${suscAtr}]]
+                let table = document.createElement("table");
+                table.classList.add("table");
+                table.classList.add("table-striped");
+
+                let header = table.createTHead();
+                let row = header.insertRow(0);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                cell1.setAttribute("scope", "col");
+                cell2.setAttribute("scope", "col");
+                cell1.innerHTML = "<b>Id</b>";
+                cell2.innerHTML = "<b>Lista de atributos</b>";
+                
+                let result = array.reduce( (resultArr , item) => {
+                        let found = false;
+                        for(group of resultArr){
+                            if(group[0].suscriptionAtributeid == item.suscriptionAtributeid){
+                                group.push(item)
+                                found = true;
+                                break;
+                            }
+                        }
+                        if(!found){
+                            resultArr.push([item])
+                        }
+                    
+                    return resultArr
+                }, [])
+
+                for (let i = 0; i < result.length; i++) {
+                    let row = table.insertRow(i+1);
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    cell1.innerHTML = `${result[i][0].suscriptionAtributeid}`;
+                    
+                    let select = document.createElement("select")
+                    result[i].forEach(p => {
+                        let option = document.createElement("option");
+                        option.text = p.atribute;
+                        select.appendChild(option)
+                    })
+                    cell2.appendChild(select)
+                    row.onclick = function() {
+                        miFuncion(this);
+                    };
+                }   
+
+                document.getElementById("mySuscriptionsTable").appendChild(table);
+            }
+            createSuscriptionTable();
+            
+            
+        </script>
+    </body>
+</html>

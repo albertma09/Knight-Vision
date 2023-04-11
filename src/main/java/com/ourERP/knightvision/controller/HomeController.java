@@ -36,6 +36,7 @@ public class HomeController {
         model.addAttribute("eventos", eventos);
         return "eventos";
     }
+
 }
 
     @GetMapping("/contabilidad")
