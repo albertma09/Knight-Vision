@@ -5,6 +5,7 @@
 package com.ourERP.knightvision.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -16,8 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
     
     @GetMapping("/registrousers")
-    public String irAOtraPagina() {
+    public String irARegistroUsers(Model model) {
+        model.addAttribute("nav","Registro");
         return "registrousers"; 
+    }
+    
+    @GetMapping("/eventos")
+    public String irAEventos(Model model){
+        model.addAttribute("nav","Eventos");
+        return "eventos";
     }
 }
 
