@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
 
-      @Autowired
+    @Autowired
     private UserDetailsServiceImpl userService;
-      
+
     @GetMapping("/login")
     public String login(Model model) {
         // Agregar una variable de modelo para mostrar un mensaje de error
@@ -36,13 +36,13 @@ public class LoginController {
     public String home() {
         return "home";
     }
-    
+
     @PostMapping("/login")
     public String login(@ModelAttribute("user") User user, HttpSession session, Model model) {
         User oauthUser = (User) userService.loadUserByUsername(user.getUsername());
         if (Objects.nonNull(oauthUser)) {
             session.setAttribute("user", oauthUser);
-            return "redirect:/home";
+            return "redirect:/cuentas";
         } else {
             model.addAttribute("error", true); // Agrega el atributo de error con valor true
             return "login";

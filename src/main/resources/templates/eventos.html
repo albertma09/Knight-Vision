@@ -11,6 +11,10 @@
     <body>
         <header th:include="/navbar.html :: header"> </header>
         <div class="container-fluid">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Añadir
+            </button>
+            <div th:if="${eventos != null and !eventos.empty}" class="container-fluid">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -23,12 +27,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>a</td>
+                    <tr th:each="evento: ${eventos}">
+                        <td th:text="${evento.id}"> Muestra id </td> 
+                        <td th:text="${evento.nombre}">Mark</td>
+                        <td th:text="${evento.tipo}">Otto</td>
+                        <td th:text="${evento.fechaInicio}">@mdo</td>
+                        <td th:text="${evento.fechaFin}">a</td>
                         <td>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -43,6 +47,54 @@
                 </tbody>
             </table>
         </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Cabecera del modal -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Título del modal</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Cuerpo del modal -->
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo">Tipo:</label>
+                                <input type="text" class="form-control" id="tipo">
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-inicial">Fecha Inicial:</label>
+                                <input type="date" class="form-control" id="fecha-inicial">
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha-final">Fecha Final:</label>
+                                <input type="date" class="form-control" id="fecha-final">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Pie del modal -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     </body>
 </html>
