@@ -24,5 +24,6 @@ public class HomeController {
     public String irAEventos(){
         return "eventos";
     }
+
 }
 
