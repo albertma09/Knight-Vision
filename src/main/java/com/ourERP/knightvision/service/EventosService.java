@@ -4,7 +4,7 @@
  */
 package com.ourERP.knightvision.service;
 
-import clases.usuario.Eventos;
+import clases.eventos.Eventos;
 import java.util.List;
 
 /**

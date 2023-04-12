@@ -4,13 +4,20 @@
  */
 package com.ourERP.knightvision.controller;
 
-import clases.usuario.Eventos;
+import clases.eventos.Eventos;
+import clases.usuario.User;
 import com.ourERP.knightvision.service.EventosService;
+import com.ourERP.knightvision.service.IuserService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -19,25 +26,47 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
+    @Autowired
+    private IuserService service;
+
     @GetMapping("/registrousers")
     public String irARegistroUsers(Model model) {
-        model.addAttribute("nav","Registro");
-        return "registrousers"; 
+        model.addAttribute("nav", "Registro");
+        List<User> users = service.listar();
+        model.addAttribute("users", users);
+        model.addAttribute("user", new User()); // Add an empty User object to the model
+        return "registrousers";
+    }
+
+    @PostMapping("/registroUsers") // Update the URL to match the form action
+    public String save(@Valid User u, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("nav", "Registro");
+            List<User> users = service.listar();
+            model.addAttribute("users", users);
+            return "registrousers";
+        }
+        service.save(u);
+        return "redirect:/registrousers";
     }
     
+    @GetMapping("/eliminar/{id}")
+    public String delete(Model model, @PathVariable int id) {
+        service.delete(id);
+        return "redirect:/registrousers";
+    }
+
     @Autowired
     private EventosService eventoService;
-    
+
     @GetMapping("/eventos")
-    public String irAEventos(Model model){
-        model.addAttribute("nav","Eventos");
+    public String irAEventos(Model model) {
+        model.addAttribute("nav", "Eventos");
         List<Eventos> eventos = eventoService.listEventos();
-        
+
         model.addAttribute("eventos", eventos);
         return "eventos";
     }
-
-}
 
     @GetMapping("/contabilidad")
     public String irAContabilidad() {
