@@ -25,11 +25,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity //Habilita la seguretat web
 @Slf4j
 public class WebSecurityConfig {
-    
+
     public String[] resources = new String[]{
         "/include/**", "/css/**", "/icons/**", "/img/**", "/js/**", "/layer/**"
     };
-
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -50,12 +49,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http.authorizeHttpRequests((requests) -> requests
-        	 .requestMatchers(resources).permitAll()
-                .requestMatchers("/login", "/home").permitAll() 
-                .anyRequest().authenticated() 
-                )
+                .requestMatchers(resources).permitAll()
+                .requestMatchers("/login", "/home").permitAll()
+                .anyRequest().authenticated()
+        )
                 .formLogin((form) -> form //Objecte que representa el formulari de login personalitzat que utilitzarem
-                .loginPage("/login")  //Pàgina on es troba el formulari per fer login personalitzat
+                .loginPage("/login") //Pàgina on es troba el formulari per fer login personalitzat
                 .permitAll() //Permet acceddir a tothom
                 )
                 .exceptionHandling((exception) -> exception //Quan es produeix una excepcció 403, accés denegat, mostrem el nostre missatge
@@ -69,6 +68,3 @@ public class WebSecurityConfig {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 }
-
-
-

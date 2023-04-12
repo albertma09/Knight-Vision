@@ -18,4 +18,3 @@ public interface UsersDAO extends JpaRepository<User, Integer> {
 
     Optional<User> findByUsername(String username);
 }
-

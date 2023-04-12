@@ -7,13 +7,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"com.ourERP.knightvision"})
-@EntityScan("clases.usuario") // Agregar esta línea
+@ComponentScan(basePackages = {"com.ourERP.knightvision"})
+@EntityScan("clases") // Agregar esta línea
 @EnableJpaRepositories("com.ourERP.knightvision.DAO") // Agregar esta línea
 public class BasicApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BasicApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BasicApplication.class, args);
+    }
 }
-
