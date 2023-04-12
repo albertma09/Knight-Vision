@@ -19,7 +19,7 @@ import lombok.Data;
  *
  * @author alber
  */
-@Data
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "events")
@@ -36,10 +36,50 @@ public class Eventos {
     private String tipo;
 
     @Column(name = "startdate")
-    private LocalDateTime fechaInicio;
+    private String fechaInicio;
 
     @Column(name = "enddate")
-    private LocalDateTime fechaFin;
+    private String fechaFin;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(String fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public String getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(String fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 
     
     
