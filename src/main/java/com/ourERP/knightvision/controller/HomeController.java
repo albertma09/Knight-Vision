@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -37,10 +39,18 @@ public class HomeController {
         return "eventos";
     }
 
-}
+
 
     @GetMapping("/contabilidad")
     public String irAContabilidad() {
         return "contabilidad";
+    }
+    
+    @PostMapping("/guardarEvento") 
+    public String guardarEvento(Eventos evento) {
+
+        eventoService.salvar(evento); 
+
+        return "redirect:/eventos"; 
     }
 }

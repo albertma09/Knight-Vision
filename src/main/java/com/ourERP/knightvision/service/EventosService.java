@@ -14,10 +14,10 @@ import java.util.List;
 public interface EventosService {
     public List<Eventos> listEventos();
 
-    public void salvar(Eventos cuenta);
+    public void salvar(Eventos evento);
 
-    public void borrar(Eventos cuenta);
+    public void borrar(Eventos evento);
 
-    public Eventos localizarCuenta(Eventos cuenta);
+    public Eventos localizarCuenta(Eventos evento);
 
 }
