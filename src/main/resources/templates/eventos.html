@@ -9,7 +9,7 @@
 
     </head>
     <body>
-        <header th:include="/navbar.html :: header"> </header>
+        <header th:insert="/navbar.html :: header"> </header>
         <div class="container-fluid">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                 Añadir
@@ -62,30 +62,31 @@
 
                     <!-- Cuerpo del modal -->
                     <div class="modal-body">
-                        <form>
+                        <form th:action="@{/guardarEvento}" method="post" th:object="${evento}">
+                            <input type="hidden" name="id" />
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre">
+                                <input type="text" name="nombre" class="form-control" id="nombre" >
                             </div>
                             <div class="form-group">
                                 <label for="tipo">Tipo:</label>
-                                <input type="text" class="form-control" id="tipo">
+                                <input type="text" name="tipo" class="form-control" id="tipo">
                             </div>
                             <div class="form-group">
                                 <label for="fecha-inicial">Fecha Inicial:</label>
-                                <input type="date" class="form-control" id="fecha-inicial">
+                                <input type="date" name="fechaInicio" class="form-control" id="fecha-inicial">
                             </div>
                             <div class="form-group">
                                 <label for="fecha-final">Fecha Final:</label>
-                                <input type="date" class="form-control" id="fecha-final">
+                                <input type="date" name="fechaFin" class="form-control" id="fecha-final">
                             </div>
+                            <input type="submit" value="Guardar" class="btn btn-primary"/>
                         </form>
                     </div>
 
                     <!-- Pie del modal -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar cambios</button>
                     </div>
 
                 </div>
