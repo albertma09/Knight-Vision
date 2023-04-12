@@ -49,10 +49,11 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http.authorizeHttpRequests((requests) -> requests
+
                 .requestMatchers(resources).permitAll()
                 .requestMatchers("/login", "/home").permitAll()
                 .anyRequest().authenticated()
-        )
+                )
                 .formLogin((form) -> form //Objecte que representa el formulari de login personalitzat que utilitzarem
                 .loginPage("/login") //Pàgina on es troba el formulari per fer login personalitzat
                 .permitAll() //Permet acceddir a tothom
