@@ -8,8 +8,6 @@ import clases.eventos.Eventos;
 import clases.usuario.User;
 import com.ourERP.knightvision.service.EventosService;
 import com.ourERP.knightvision.service.IuserService;
-import jakarta.validation.Valid;
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,7 +38,7 @@ public class HomeController {
     }
 
     @PostMapping("/registroUsers") // Update the URL to match the form action
-    public String save(@Valid User u, BindingResult result, Model model) {
+    public String save( User u, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("nav", "Registro");
             List<User> users = service.listar();
