@@ -28,6 +28,7 @@
         </style>
     </head>
     <body>
+        
         <header th:include="/navbar.html :: header"> </header>
         <div id="mySuscriptionsTable" class="div1">
             <h2 class="toolbar-title">Suscripciones</h2>
@@ -36,7 +37,7 @@
         <div id="myPlayersTable" class="div2">
             <h2 class="toolbar-title">Jugadores de la suscripcion seleccionada</h2>
         </div>
-
+<button onclick="test()">pruebas</button>
         <script th:inline="javascript">
             const createSuscriptionPlayersTable = (array) => {
                 let table = document.createElement("table");
@@ -126,6 +127,10 @@
             }
             createSuscriptionTable();
             
+            const test = () => {
+                console.log("probando")
+                console.log([[${suscriptionAtributes}]])
+            }
             
         </script>
     </body>
