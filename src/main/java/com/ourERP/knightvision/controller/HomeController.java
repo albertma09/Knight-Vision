@@ -9,6 +9,7 @@ import clases.usuario.User;
 import com.ourERP.knightvision.service.EventosService;
 import com.ourERP.knightvision.service.IuserService;
 import jakarta.validation.Valid;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
