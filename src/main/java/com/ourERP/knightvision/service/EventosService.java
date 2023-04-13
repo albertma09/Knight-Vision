@@ -4,7 +4,7 @@
  */
 package com.ourERP.knightvision.service;
 
-import clases.usuario.Eventos;
+import clases.eventos.Eventos;
 import java.util.List;
 
 /**
@@ -14,10 +14,10 @@ import java.util.List;
 public interface EventosService {
     public List<Eventos> listEventos();
 
-    public void salvar(Eventos cuenta);
+    public void salvar(Eventos evento);
 
-    public void borrar(Eventos cuenta);
+    public void borrar(Eventos evento);
 
-    public Eventos localizarCuenta(Eventos cuenta);
+    public Eventos editar(Eventos evento);
 
 }

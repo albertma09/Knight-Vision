@@ -4,7 +4,7 @@
  */
 package com.ourERP.knightvision.service;
 
-import clases.usuario.Eventos;
+import clases.eventos.Eventos;
 import com.ourERP.knightvision.DAO.EventosDAO;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -30,18 +30,20 @@ public class EventosServiceImpl implements EventosService {
     }
 
     @Override
-    public void salvar(Eventos cuenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    @Transactional
+    public void salvar(Eventos evento) {
+        this.eventoDAO.save(evento);
     }
 
     @Override
-    public void borrar(Eventos cuenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    @Transactional
+    public void borrar(Eventos evento) {
+        this.eventoDAO.delete(evento);
     }
 
     @Override
-    public Eventos localizarCuenta(Eventos cuenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Eventos editar(Eventos evento) {
+        return this.eventoDAO.findById(evento.getId()).orElse(null);
     }
     
 }

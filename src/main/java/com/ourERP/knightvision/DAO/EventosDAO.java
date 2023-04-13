@@ -4,7 +4,7 @@
  */
 package com.ourERP.knightvision.DAO;
 
-import clases.usuario.Eventos;
+import clases.eventos.Eventos;
 import org.springframework.data.repository.CrudRepository;
 
 /**
