@@ -6,7 +6,11 @@ package com.ourERP.knightvision.controller;
 
 import clases.suscriptions.PlayersSuscription;
 import clases.suscriptions.prueba;
+import clases.suscriptions.SuscriptionAtribute;
+import com.ourERP.knightvision.service.SuscriptionsService;
 import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,32 +22,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SuscriptionsController {
+    @Autowired
+    private SuscriptionsService suscriptionsService;
     
     @GetMapping("/suscriptions")
     public String irASuscriptions(Model model){
         // suscripciones
-        prueba test = new prueba(1,"gerardo");
-        prueba test3 = new prueba(1,"albert");
-        prueba test4 = new prueba(1,"george");
-        prueba test2 = new prueba(2,"alfredico");
-        prueba test5 = new prueba(2,"lindsay");
-        prueba test6 = new prueba(2,"ivan");
-        ArrayList<prueba> suscAtr = new ArrayList<>();
-        suscAtr.add(test);
-        suscAtr.add(test2);
-        suscAtr.add(test3);
-        suscAtr.add(test4);
-        suscAtr.add(test5);
-        suscAtr.add(test6);
-        model.addAttribute("suscAtr", suscAtr);
         
-        //suscripciones-players
-        PlayersSuscription p1 = new PlayersSuscription(61,2);
-        PlayersSuscription p2 = new PlayersSuscription(27,1);
-        ArrayList<PlayersSuscription> playersSusc = new ArrayList<>();
-        playersSusc.add(p1);
-        playersSusc.add(p2);
+        List<PlayersSuscription> playersSusc = suscriptionsService.listPlayersSuscription();
         model.addAttribute("playersSusc", playersSusc);
+        
+        List<SuscriptionAtribute> suscAtr = suscriptionsService.listSuscriptionsAtributes();
+        model.addAttribute("suscAtr", suscAtr);
         
         return "suscriptions";
     }

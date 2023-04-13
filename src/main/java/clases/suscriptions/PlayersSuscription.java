@@ -4,34 +4,35 @@
  */
 package clases.suscriptions;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+
 /**
  *
  * @author Gerardo S
  */
+@Data
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "players-suscription")
 public class PlayersSuscription {
-    private int idplayer;
-    private int idsuscription;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idplayer")
+    private Integer idplayer;
 
-    public PlayersSuscription(int idplayer, int idsuscription) {
-        this.idplayer = idplayer;
-        this.idsuscription = idsuscription;
-    }
+    @Column(name = "idsuscription")
+    private String idsuscription;
 
-    public int getIdplayer() {
-        return idplayer;
-    }
 
-    public void setIdplayer(int idplayer) {
-        this.idplayer = idplayer;
-    }
-
-    public int getIdsuscription() {
-        return idsuscription;
-    }
-
-    public void setIdsuscription(int idsuscription) {
-        this.idsuscription = idsuscription;
-    }
     
     
 }

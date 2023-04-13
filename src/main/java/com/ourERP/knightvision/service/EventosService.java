@@ -18,6 +18,6 @@ public interface EventosService {
 
     public void borrar(Eventos evento);
 
-    public Eventos localizarCuenta(Eventos evento);
+    public Eventos editar(Eventos evento);
 
 }

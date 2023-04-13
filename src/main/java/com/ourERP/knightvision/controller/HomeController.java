@@ -8,7 +8,6 @@ import clases.eventos.Eventos;
 import clases.usuario.User;
 import com.ourERP.knightvision.service.EventosService;
 import com.ourERP.knightvision.service.IuserService;
-import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class HomeController {
     }
 
     @PostMapping("/registroUsers") // Update the URL to match the form action
-    public String save(@Valid User u, BindingResult result, Model model) {
+    public String save( User u, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("nav", "Registro");
             List<User> users = service.listar();
@@ -49,47 +48,13 @@ public class HomeController {
         service.save(u);
         return "redirect:/registrousers";
     }
-
-    @GetMapping("/editar/{userid}")
-    public String mostrarFormularioEditar(@PathVariable("userid") int userid, Model model) {
-        // buscar el usuario por id y agregarlo al modelo
-        Optional<User> user = service.listarId(userid);
-        model.addAttribute("user", user);
-
-        // redirigir a la misma página
-        return "formeditaruser";
-    }
-
-    @GetMapping("/eliminar/{userid}")
-    public String delete(User user) {
-        service.delete(user);
-        return "redirect:/registrosers";
-    }
-
-    @Autowired
-    private EventosService eventoService;
-
-    @GetMapping("/eventos")
-    public String irAEventos(Model model) {
-        model.addAttribute("nav", "Eventos");
-        List<Eventos> eventos = eventoService.listEventos();
-
-        model.addAttribute("eventos", eventos);
-        return "eventos";
-    }
-
-
-
-    @GetMapping("/contabilidad")
-    public String irAContabilidad() {
-        return "contabilidad";
-    }
     
-    @PostMapping("/guardarEvento") 
-    public String guardarEvento(Eventos evento) {
+    
+    
+    
 
-        eventoService.salvar(evento); 
 
-        return "redirect:/eventos"; 
-    }
+
+    
 }
+
