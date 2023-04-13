@@ -78,8 +78,18 @@ public class HomeController {
         return "eventos";
     }
 
+
+
     @GetMapping("/contabilidad")
     public String irAContabilidad() {
         return "contabilidad";
+    }
+    
+    @PostMapping("/guardarEvento") 
+    public String guardarEvento(Eventos evento) {
+
+        eventoService.salvar(evento); 
+
+        return "redirect:/eventos"; 
     }
 }

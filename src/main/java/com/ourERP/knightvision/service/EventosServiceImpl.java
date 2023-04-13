@@ -30,17 +30,18 @@ public class EventosServiceImpl implements EventosService {
     }
 
     @Override
-    public void salvar(Eventos cuenta) {
+    @Transactional
+    public void salvar(Eventos evento) {
+        this.eventoDAO.save(evento);
+    }
+
+    @Override
+    public void borrar(Eventos evento) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void borrar(Eventos cuenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Eventos localizarCuenta(Eventos cuenta) {
+    public Eventos localizarCuenta(Eventos evento) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
