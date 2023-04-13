@@ -4,7 +4,7 @@
  */
 package com.ourERP.knightvision.controller;
 
-import clases.usuario.Eventos;
+import clases.eventos.Eventos;
 import com.ourERP.knightvision.service.EventosService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
