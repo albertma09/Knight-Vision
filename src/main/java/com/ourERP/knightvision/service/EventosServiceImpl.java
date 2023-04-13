@@ -4,7 +4,7 @@
  */
 package com.ourERP.knightvision.service;
 
-import clases.usuario.Eventos;
+import clases.eventos.Eventos;
 import com.ourERP.knightvision.DAO.EventosDAO;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
