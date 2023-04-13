@@ -36,11 +36,11 @@ public class HomeController {
         model.addAttribute("eventos", eventos);
         return "eventos";
     }
-
-}
-
+    
     @GetMapping("/contabilidad")
     public String irAContabilidad() {
         return "contabilidad";
     }
+    
 }
+
