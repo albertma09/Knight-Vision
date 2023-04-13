@@ -10,8 +10,8 @@ import com.ourERP.knightvision.service.EventosService;
 import com.ourERP.knightvision.service.IuserService;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,11 +49,21 @@ public class HomeController {
         service.save(u);
         return "redirect:/registrousers";
     }
-    
-    @GetMapping("/eliminar/{id}")
-    public String delete(Model model, @PathVariable int id) {
-        service.delete(id);
-        return "redirect:/registrousers";
+
+    @GetMapping("/editar/{userid}")
+    public String mostrarFormularioEditar(@PathVariable("userid") int userid, Model model) {
+        // buscar el usuario por id y agregarlo al modelo
+        Optional<User> user = service.listarId(userid);
+        model.addAttribute("user", user);
+
+        // redirigir a la misma página
+        return "formeditaruser";
+    }
+
+    @GetMapping("/eliminar/{userid}")
+    public String delete(User user) {
+        service.delete(user);
+        return "redirect:/registrosers";
     }
 
     @Autowired

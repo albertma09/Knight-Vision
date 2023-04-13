@@ -38,15 +38,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        usuariDAO.save(user);
-        UserDetails userDetails = loadUserByUsername(user.getUsername());
-        SecurityContextHolder.getContext().setAuthentication(
-        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities())
-        );
-    }
-
     @Override
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

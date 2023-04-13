@@ -6,6 +6,7 @@ package com.ourERP.knightvision.service;
 
 import clases.usuario.User;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -14,8 +15,10 @@ import java.util.List;
 public interface IuserService {
     public List<User>listar();
     
+    public Optional<User>listarId(int userid);
+    
     public int save(User u);
     
-    public void delete(int id);
+    public void delete(User user);
     
 }
