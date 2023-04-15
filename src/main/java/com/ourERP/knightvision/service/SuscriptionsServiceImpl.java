@@ -6,8 +6,10 @@ package com.ourERP.knightvision.service;
 
 import clases.suscriptions.PlayersSuscription;
 import clases.suscriptions.SuscriptionAtribute;
+import clases.suscriptions.Suscriptions;
 import com.ourERP.knightvision.DAO.PlayersSuscriptionDAO;
 import com.ourERP.knightvision.DAO.SuscriptionAtributeDAO;
+import com.ourERP.knightvision.DAO.SuscriptionsDAO;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class SuscriptionsServiceImpl implements SuscriptionsService {
     private final SuscriptionAtributeDAO sucriptionAtributeDAO = null;
     @Autowired
     private final PlayersSuscriptionDAO playersSuscriptionDAO = null;
+    @Autowired
+    private final SuscriptionsDAO suscriptionsDAO = null;
     
     @Override
     @Transactional (readOnly = true)
@@ -56,6 +60,22 @@ public class SuscriptionsServiceImpl implements SuscriptionsService {
 
     @Override
     public void borrarPlayersSuscription(PlayersSuscription cuenta) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+        @Override
+    @Transactional (readOnly = true)
+    public List<Suscriptions> listSuscriptions() {
+      return (List<Suscriptions>) suscriptionsDAO.findAll();
+    }
+    
+   @Override
+    public void salvarSuscriptions(Suscriptions item) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void borrarSuscriptions(Suscriptions cuenta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

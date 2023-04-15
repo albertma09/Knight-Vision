@@ -43,12 +43,7 @@ public class User implements Serializable{
 
     private Integer rol;
 
-    @OneToOne
-    @JoinColumn(name = "employer_id")
-    private Employer employer;
 
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
-    private Player player;
 
 }
 

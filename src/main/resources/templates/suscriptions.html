@@ -58,8 +58,8 @@
                     let row = table.insertRow(i+1);
                     let cell1 = row.insertCell(0);
                     let cell2 = row.insertCell(1);
-                    cell1.innerHTML = `<b>${array[i].idplayer}</b>`;
-                    cell2.innerHTML = array[i].idsuscription;
+                    cell1.innerHTML = `<b>${array[i].id.idplayer}</b>`;
+                    cell2.innerHTML = array[i].suscription.id;
                 }
 
                 document.getElementById("myPlayersTable").appendChild(table);
@@ -70,7 +70,7 @@
                 if(elem) elem.parentNode.removeChild(elem);
                 
                 let id = tr.children[0].innerHTML
-                let array = [[${playersSusc}]].filter(p => p.idsuscription == id)
+                let array = [[${playersSusc}]].filter(p => p.suscription.id == id)
                 createSuscriptionPlayersTable(array)
             }
             
@@ -83,16 +83,20 @@
                 let header = table.createTHead();
                 let row = header.insertRow(0);
                 let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(1);
+                let cell2 = row.insertCell(2);
+                
                 cell1.setAttribute("scope", "col");
                 cell2.setAttribute("scope", "col");
+                cell3.setAttribute("scope", "col");
                 cell1.innerHTML = "<b>Id</b>";
+                cell3.innerHTML = "<b>Nom suscripció</b>";
                 cell2.innerHTML = "<b>Lista de atributos</b>";
                 
                 let result = array.reduce( (resultArr , item) => {
                         let found = false;
                         for(group of resultArr){
-                            if(group[0].suscriptionAtributeid == item.suscriptionAtributeid){
+                            if(group[0].suscription.id == item.suscription.id){
                                 group.push(item)
                                 found = true;
                                 break;
@@ -108,9 +112,10 @@
                 for (let i = 0; i < result.length; i++) {
                     let row = table.insertRow(i+1);
                     let cell1 = row.insertCell(0);
-                    let cell2 = row.insertCell(1);
-                    cell1.innerHTML = `${result[i][0].suscriptionAtributeid}`;
-                    
+                    let cell3 = row.insertCell(1);
+                    let cell2 = row.insertCell(2);
+                    cell1.innerHTML = `${result[i][0].suscription.id}`;
+                    cell3.innerHTML = `${result[i][0].suscription.name}`;
                     let select = document.createElement("select")
                     result[i].forEach(p => {
                         let option = document.createElement("option");
@@ -129,7 +134,7 @@
             
             const test = () => {
                 console.log("probando")
-                console.log([[${suscriptionAtributes}]])
+                console.log([[${playersSusc}]])
             }
             
         </script>
