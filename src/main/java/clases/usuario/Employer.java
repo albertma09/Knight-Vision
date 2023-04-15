@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -32,6 +34,8 @@ public class Employer implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY) //defineix que el id és autogenerat per la base de dades i és de tipus AI (autoincrement)
     private int Employeid;
     
+    private String username;
+    
     private float salary;
     
     private String type;
@@ -39,4 +43,5 @@ public class Employer implements Serializable{
     @OneToOne
     @JoinColumn(name = "iduser")
     private User users;
+    
 }
