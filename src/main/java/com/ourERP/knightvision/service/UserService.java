@@ -31,9 +31,9 @@ public class UserService implements IuserService {
     public List<User> listar() {
         return (List<User>) data.findAll();
     }
-    
+
     @Override
-    public Optional<User>listarId(int userid) {
+    public Optional<User> listarId(int userid) {
         return data.findById(userid);
     }
 
@@ -50,7 +50,12 @@ public class UserService implements IuserService {
     }
 
     @Override
-    public void delete(User user) {
-        this.data.delete(user);
+    public void delete(int userid) {
+        data.deleteById(userid);
+    }
+    
+    @Override
+    public User editar(User user) {
+        return this.data.findById(user.getUserid()).orElse(null);
     }
 }
