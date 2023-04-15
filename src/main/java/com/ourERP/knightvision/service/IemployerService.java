@@ -4,7 +4,7 @@
  */
 package com.ourERP.knightvision.service;
 
-import clases.usuario.User;
+import clases.usuario.Employer;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,15 +12,12 @@ import java.util.Optional;
  *
  * @author Alfred
  */
-public interface IuserService {
-    public List<User>listar();
+public interface IemployerService {
+    public List<Employer>listar();
     
-    public Optional<User>listarId(int userid);
+    public Optional<Employer>listarId(int Employerid);
     
-    public int save(User u);
+    public int save(Employer e);
     
-    public void delete(int userid);
-    
-     public User editar(User user);
-    
+    public void delete(Employer employer);
 }

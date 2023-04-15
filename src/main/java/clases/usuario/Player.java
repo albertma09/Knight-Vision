@@ -4,6 +4,7 @@
  */
 package clases.usuario;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,28 +15,36 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  *
  * @author Alfred
  */
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "players")
-public class Player implements Serializable{
-    
+public class Player implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
-    @Id //defineix la clau primaria de la taula
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //defineix que el id és autogenerat per la base de dades i és de tipus AI (autoincrement)
-    private int Playerid;
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int playerid;
+
+    private String username;
+
     private int eloCatalan;
-    
+
     private int eloFide;
-    
+
     @OneToOne
     @JoinColumn(name = "iduser")
     private User users;
+
+    public int getIduser() {
+    return users != null ? users.getIduser() : 0; // Retorna 0 si users es nulo
+}
 }
 
