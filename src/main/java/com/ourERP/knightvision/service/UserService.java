@@ -7,6 +7,7 @@ package com.ourERP.knightvision.service;
 import clases.usuario.User;
 import com.ourERP.knightvision.DAO.UsersDAO2;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,11 @@ public class UserService implements IuserService {
     public List<User> listar() {
         return (List<User>) data.findAll();
     }
+    
+    @Override
+    public Optional<User>listarId(int userid) {
+        return data.findById(userid);
+    }
 
     @Override
     public int save(User u) {
@@ -44,7 +50,7 @@ public class UserService implements IuserService {
     }
 
     @Override
-    public void delete(int id) {
-        data.deleteById(id);
+    public void delete(User user) {
+        this.data.delete(user);
     }
 }
