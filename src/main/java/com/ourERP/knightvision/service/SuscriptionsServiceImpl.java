@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SuscriptionsServiceImpl implements SuscriptionsService {
 
     @Autowired
-    private final SuscriptionAtributeDAO sucriptionAtributeDAO = null;
+    private final SuscriptionAtributeDAO suscriptionAtributeDAO = null;
     @Autowired
     private final PlayersSuscriptionDAO playersSuscriptionDAO = null;
     @Autowired
@@ -34,17 +34,17 @@ public class SuscriptionsServiceImpl implements SuscriptionsService {
     @Override
     @Transactional (readOnly = true)
     public List<SuscriptionAtribute> listSuscriptionsAtributes() {
-      return (List<SuscriptionAtribute>) sucriptionAtributeDAO.findAll();
+      return (List<SuscriptionAtribute>) suscriptionAtributeDAO.findAll();
     }
 
     @Override
-    public void salvar(SuscriptionAtribute cuenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void salvar(SuscriptionAtribute item) {
+        this.suscriptionAtributeDAO.save(item);
     }
 
     @Override
-    public void borrar(SuscriptionAtribute cuenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void borrar(SuscriptionAtribute item) {
+        this.suscriptionAtributeDAO.delete(item);
     }
     
     @Override
@@ -55,12 +55,12 @@ public class SuscriptionsServiceImpl implements SuscriptionsService {
     
    @Override
     public void salvarPlayersSuscription(PlayersSuscription item) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.playersSuscriptionDAO.save(item);
     }
 
     @Override
-    public void borrarPlayersSuscription(PlayersSuscription cuenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void borrarPlayersSuscription(PlayersSuscription item) {
+        this.playersSuscriptionDAO.delete(item);
     }
     
         @Override
@@ -70,13 +70,15 @@ public class SuscriptionsServiceImpl implements SuscriptionsService {
     }
     
    @Override
+   @Transactional
     public void salvarSuscriptions(Suscriptions item) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.suscriptionsDAO.save(item);
     }
 
     @Override
-    public void borrarSuscriptions(Suscriptions cuenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    @Transactional
+    public void borrarSuscriptions(Suscriptions item) {
+        this.suscriptionsDAO.delete(item);
     }
 
     
