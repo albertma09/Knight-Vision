@@ -7,6 +7,7 @@ package com.ourERP.knightvision.service;
 import clases.usuario.User;
 import com.ourERP.knightvision.DAO.UsersDAO2;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,11 @@ public class UserService implements IuserService {
     }
 
     @Override
+    public Optional<User> listarId(int userid) {
+        return data.findById(userid);
+    }
+
+    @Override
     public int save(User u) {
         int res = 0;
         String encodedPassword = encoder.encode(u.getPassword()); // Encriptar la contraseña
@@ -44,7 +50,12 @@ public class UserService implements IuserService {
     }
 
     @Override
-    public void delete(int id) {
-        data.deleteById(id);
+    public void delete(int userid) {
+        data.deleteById(userid);
+    }
+    
+    @Override
+    public User editar(User user) {
+        return this.data.findById(user.getUserid()).orElse(null);
     }
 }
