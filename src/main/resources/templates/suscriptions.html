@@ -28,18 +28,149 @@
         </style>
     </head>
     <body>
-        
         <header th:include="/navbar.html :: header"> </header>
         <div id="mySuscriptionsTable" class="div1">
             <h2 class="toolbar-title">Suscripciones</h2>
-            
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#suscModal">
+                Añadir susc
+            </button>
         </div>
         <div id="myPlayersTable" class="div2">
             <h2 class="toolbar-title">Jugadores de la suscripcion seleccionada</h2>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#suscPlayerModal">
+                Añadir jugador
+            </button>
         </div>
-<button onclick="test()">pruebas</button>
+
+<!-- Modal -->
+            <div class="modal" id="suscModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Cabecera del modal -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Añadir suscripción</h4>
+                        </div>
+
+                        <!-- Cuerpo del modal -->
+                        <div class="modal-body">
+                            <form th:action="@{/crearSuscription}" method="post" th:object="${susc}">
+                                <input type="hidden" name="id" id="id"/>
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" name="name" class="form-control" id="nombre" >
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" value="Guardar" class="btn btn-primary"/>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+                <!-- Manage atributes -->
+            <div class="modal" id="manageAtributesModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Cabecera del modal -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Gestión atributos</h4>
+                        </div>
+
+                        <!-- Cuerpo del modal -->
+                        <div id="manageAtributesBody" class="modal-body">
+                            <div id="addAtributes">
+                                <b> - AÑADIR ATRIBUTO</b>
+                                <form th:action="@{/addAtribute}" method="post" th:object="${suscAtr}">
+                                    <div class="form-group">
+                                        <label for="nombre">Id suscripción:</label>
+                                        <input readonly type="number" name="suscriptionid" class="form-control" id="suscriptionid" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nombre">Atributo:</label>
+                                        <input type="text" name="atribute" class="form-control" id="atribute" >
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Guardar" class="btn btn-primary"/>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="manageAtributesTitle">
+                                <b> - LISTA ATRIBUTOS</b>
+                            </div>
+                            <div id="showAtributes"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+                            <div class="modal" id="suscPlayerModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Cabecera del modal -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Añadir suscripción a jugador</h4>
+                        </div>
+
+                        <!-- Cuerpo del modal -->
+                        <div class="modal-body">
+                            <div id="addAtributes">
+                                <form th:action="@{/crearPlayerSuscription}" method="post" th:object="${playersSuscriptionDTO}">
+                                    <div class="form-group">
+                                        <label for="nombre">Id suscripción:</label>
+                                        <input type="number" name="suscid" class="form-control" id="suscriptionid" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nombre">Id jugador:</label>
+                                        <input type="number" name="playerid" class="form-control" id="playerid" >
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Guardar" class="btn btn-primary"/>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+                    <div class="modal" id="deleteSuscriptionModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Cabecera del modal -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">¿ Estás seguro ?</h4>
+                        </div>
+
+                        <!-- Cuerpo del modal -->
+                        <div class="modal-body">
+                                <input type="hidden"/>
+                                <div>Se eliminará la suscripción con todos sus atributos y se eliminará la suscripción de todos los jugadores asociados.</div>
+                                <div class="modal-footer">
+                                    <button id="confirmation_button" data-dismiss="modal" class="btn btn-primary">OK</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script th:inline="javascript">
-            const createSuscriptionPlayersTable = (array) => {
+            let suscWithAtributes = []
+            const createSuscriptionPlayersTable = (array, id) => {
+                console.log(id)
                 let table = document.createElement("table");
                 table.classList.add("table");
                 table.classList.add("table-striped");
@@ -48,18 +179,41 @@
                 let header = table.createTHead();
                 let row = header.insertRow(0);
                 let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(1);
+                let cell4 = row.insertCell(2);
+                let cell2 = row.insertCell(3);
+                let cell5 = row.insertCell(4);
                 cell1.setAttribute("scope", "col");
                 cell2.setAttribute("scope", "col");
+                cell3.setAttribute("scope", "col");
+                cell4.setAttribute("scope", "col");
+                cell5.setAttribute("scope", "col");
                 cell1.innerHTML = "<b>IdPlayer</b>";
-                cell2.innerHTML = "<b>IdSuscription</b>";
+                cell3.innerHTML = "<b>Nombre</b>";
+                cell4.innerHTML = "<b>Apellido</b>";
+                cell2.innerHTML = "<b>Nombre usuario</b>";
+                cell5.innerHTML = "<b>Acciones</b>";
 
                 for (let i = 0; i < array.length; i++) {
                     let row = table.insertRow(i+1);
                     let cell1 = row.insertCell(0);
-                    let cell2 = row.insertCell(1);
-                    cell1.innerHTML = `<b>${array[i].idplayer}</b>`;
-                    cell2.innerHTML = array[i].idsuscription;
+                    let cell3 = row.insertCell(1);
+                    let cell4 = row.insertCell(2);
+                    let cell2 = row.insertCell(3);
+                    let cell5 = row.insertCell(4);
+                    cell1.innerHTML = `<b>${array[i].id.idplayer}</b>`;
+                    cell2.innerHTML = array[i].player.users.username;
+                    cell3.innerHTML = array[i].player.users.name;
+                    cell4.innerHTML = array[i].player.users.lastname;
+                    
+                    let span1 = document.createElement("span")
+                    let a1 = document.createElement("a");
+                    a1.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>'
+                    a1.setAttribute("class","cursor-pointer")
+                    a1.href=`/eliminarPlayerSuscription/${id}/${array[i].id.idplayer}`
+                    
+                    span1.appendChild(a1)
+                    cell5.appendChild(span1)
                 }
 
                 document.getElementById("myPlayersTable").appendChild(table);
@@ -70,12 +224,15 @@
                 if(elem) elem.parentNode.removeChild(elem);
                 
                 let id = tr.children[0].innerHTML
-                let array = [[${playersSusc}]].filter(p => p.idsuscription == id)
-                createSuscriptionPlayersTable(array)
+                let array = [[${playersSusc}]].filter(p => p.suscription.id == id)
+                createSuscriptionPlayersTable(array, id)
             }
             
             const createSuscriptionTable = () => {
-                let array = [[${suscAtr}]]
+                let suscAtr = [[${suscAtr}]]
+                
+                let susc = [[${susc}]]
+                
                 let table = document.createElement("table");
                 table.classList.add("table");
                 table.classList.add("table-striped");
@@ -83,53 +240,102 @@
                 let header = table.createTHead();
                 let row = header.insertRow(0);
                 let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(1);
+                let cell2 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                
                 cell1.setAttribute("scope", "col");
                 cell2.setAttribute("scope", "col");
+                cell3.setAttribute("scope", "col");
+                cell4.setAttribute("scope", "col");
                 cell1.innerHTML = "<b>Id</b>";
-                cell2.innerHTML = "<b>Lista de atributos</b>";
+                cell3.innerHTML = "<b>Nom suscripció</b>";
+                cell2.innerHTML = "<b>Atributos</b>";
+                cell4.innerHTML = "<b>Acciones</b>";
                 
-                let result = array.reduce( (resultArr , item) => {
-                        let found = false;
-                        for(group of resultArr){
-                            if(group[0].suscriptionAtributeid == item.suscriptionAtributeid){
-                                group.push(item)
-                                found = true;
-                                break;
-                            }
-                        }
-                        if(!found){
-                            resultArr.push([item])
-                        }
-                    
-                    return resultArr
-                }, [])
-
-                for (let i = 0; i < result.length; i++) {
+                let suscAtrMap = {}
+                for(let i=0; i<suscAtr.length; i++){
+                    let suscriptionid= suscAtr[i].suscription.id
+                    let atribute = suscAtr[i].atribute
+                    if(!suscAtrMap[suscriptionid]){
+                        suscAtrMap[suscriptionid] = [atribute]
+                    }else{
+                        suscAtrMap[suscriptionid].push(atribute)
+                    }
+                }
+                susc.forEach(s => {
+                    s.atributes = suscAtrMap[s.id]
+                })
+                
+                
+                for (let i = 0; i < susc.length; i++) {
                     let row = table.insertRow(i+1);
                     let cell1 = row.insertCell(0);
-                    let cell2 = row.insertCell(1);
-                    cell1.innerHTML = `${result[i][0].suscriptionAtributeid}`;
-                    
+                    let cell3 = row.insertCell(1);
+                    let cell2 = row.insertCell(2);
+                    let cell4 = row.insertCell(3);
+                    cell1.innerHTML = `${susc[i].id}`;
+                    cell3.innerHTML = `${susc[i].name}`;
                     let select = document.createElement("select")
-                    result[i].forEach(p => {
-                        let option = document.createElement("option");
-                        option.text = p.atribute;
-                        select.appendChild(option)
-                    })
-                    cell2.appendChild(select)
+                    
+                    let span3 = document.createElement("span")
+                    let span4 = document.createElement("span")
+                    span3.setAttribute("suscId",susc[i].id)
+                    span4.setAttribute("suscId",susc[i].id)
+                    span3.innerHTML = '<a class="cursor-pointer" onclick="createManageAtributesModal(this)" data-toggle="modal" data-target="#manageAtributesModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg></a>'
+                    let a = document.createElement("a")
+                    a.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>'
+                    a.setAttribute("class","cursor-pointer")
+                   // a.setAttribute("data-toggle","modal")
+                    //a.setAttribute("data-target","#deleteSuscriptionModal")
+                    a.href=`/eliminarSuscription/${susc[i].id}`
+
+                    span4.appendChild(a)
+                    cell2.appendChild(span3)
+                    cell4.appendChild(span4)
                     row.onclick = function() {
                         miFuncion(this);
                     };
+                    
                 }   
-
+                suscWithAtributes = susc
                 document.getElementById("mySuscriptionsTable").appendChild(table);
             }
             createSuscriptionTable();
             
+            const setSuscriptionIdInAddAtribute = (selectedSuscriptionid) => {
+                let suscriptionidInput = document.getElementById("suscriptionid")
+                suscriptionidInput.value= selectedSuscriptionid
+            }
+            
             const test = () => {
-                console.log("probando")
-                console.log([[${suscriptionAtributes}]])
+                console.log("selectedRow")
+            }
+            
+            const createManageAtributesModal = (a) => {
+                let suscId = a.parentNode.getAttribute("suscId")
+                let suscription = suscWithAtributes.find(p=> p.id == suscId)
+                let ul = document.createElement("ul")
+               
+                if(suscription.atributes){
+                    for(let i = 0; i< suscription.atributes.length; i++){
+                       let li = document.createElement("li")
+                       let a = document.createElement("a")
+                       a.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>'
+                       a.setAttribute("class","cursor-pointer")
+                       li.appendChild(document.createTextNode(suscription.atributes[i]));
+                       li.appendChild(a)
+                       ul.appendChild(li)
+                       a.href=`/deleteAtribute/${suscId}/${li.textContent}`
+                   }
+                }
+               let showAtributes = document.getElementById("showAtributes")
+               let manageAtributesTitle = document.getElementById("manageAtributesTitle")
+               
+               setSuscriptionIdInAddAtribute(suscId)
+               //document.getElementById("manageAtributesTitle").innerHTML = `<h5>ID SUSCRIPCIÓN: ${suscId}</h5>`
+               showAtributes.innerHTML = ""
+               showAtributes.appendChild(ul)
             }
             
         </script>
