@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
  * @author Alfred
  */
 @Service
-public class PlayerService implements IplayerService{
-    
+public class PlayerService implements IplayerService {
+
     @Autowired
     private PlayersDAO data;
 
@@ -28,17 +28,12 @@ public class PlayerService implements IplayerService{
 
     @Override
     public Optional<Player> listarId(int Playerid) {
-       return data.findById(Playerid);
+        return data.findById(Playerid);
     }
 
     @Override
     public int save(Player p) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Player savedPlayer = data.save(p);
+        return savedPlayer.getPlayerid();
     }
-
-    @Override
-    public void delete(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }

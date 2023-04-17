@@ -22,5 +22,6 @@ public interface IuserService {
     public void delete(int userid);
     
      public User editar(User user);
-    
+     
+     public User findByUsername(String username);
 }

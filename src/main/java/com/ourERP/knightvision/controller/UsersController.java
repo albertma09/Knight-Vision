@@ -52,11 +52,15 @@ public class UsersController {
         serviceUser.delete(userid);
         return "redirect:/registrousers";
     }
-    
-    
+
     @GetMapping("/editarusuario/{userid}")
-    public String editar(Model model, User user) {
-        model.addAttribute("users", serviceUser.editar(user));
-        return "redirect:/registrousers";
+    public String editar(@PathVariable("userid") int userid, Model model) {
+        Optional<User> user = serviceUser.listarId(userid);
+        if (user.isPresent()) {
+            model.addAttribute("user", user.get());
+            return "editUser";
+        } else {
+            return "redirect:/registrousers";
+        }
     }
 }

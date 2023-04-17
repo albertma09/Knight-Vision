@@ -52,6 +52,7 @@ public class WebSecurityConfig {
 
                 .requestMatchers(resources).permitAll()
                 .requestMatchers("/login", "/home").permitAll()
+                .requestMatchers("/registrousers", "/employers", "/verPlayers", "/verEmployers").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form //Objecte que representa el formulari de login personalitzat que utilitzarem

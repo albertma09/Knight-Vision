@@ -22,7 +22,6 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int userid;
 
     private String username;
@@ -44,12 +43,12 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "users")
     private Employer employer;
 
-    public void setUserId(int userid) {
+    public void setUserid(int userid) {
         this.userid = userid;
     }
 
-    int getIduser() {
-        return userid;
+    public int getUserid() {
+        return this.userid;
     }
 
 }

@@ -53,9 +53,14 @@ public class UserService implements IuserService {
     public void delete(int userid) {
         data.deleteById(userid);
     }
-    
+
     @Override
     public User editar(User user) {
-        return this.data.findById(user.getUserid()).orElse(null);
+         return this.data.findById(user.getUserid()).orElse(null);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return this.data.findByUsername(username);
     }
 }
