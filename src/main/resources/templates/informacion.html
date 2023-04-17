@@ -1,27 +1,167 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+        <title>Gráfica con Highcharts</title>
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
-        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <link href="/css/estilos_tablas.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <header th:insert="/navbar.html :: header"> </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="eloCatalan-container"></div> 
+                </div>
+                <div class="col-md-6">
+                    <div id="eloInternacional-container"></div>               
+                </div>
 
-        <figure class="highcharts-figure">
-            <div id="container"></div>
-            <p class="highcharts-description">
-                Pie charts are very popular for showing a compact overview of a
-                composition or comparison. While they can be harder to read than
-                column charts, they remain a popular choice for small datasets.
-            </p>
-        </figure>
+            </div>
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script th:inline="javascript">
+            // Definir los datos de la gráfica
+            let array = [[${eloCatalan}]]
+            let a=0
+            let b=0
+            let c=0
+            let d=0
+            let e=0
+            for (var i = 0; i < array.length; i++) {
+                if(array[i] <=600){
+                    a++;
+                }else if(array[i]>600&&array[i]<=1200){
+                    b++;
+                }else if(array[i]>1200&&array[i]<=2000){
+                    c++;
+                }else if(array[i]>2000&&array[i]<=3000){
+                    d++;
+                }else if(array[i]>3000){
+                    e++;
+                }
+            }
+            var data = [{
+                    name: '0-600',
+                    y: a
+                }, {
+                    name: '601-1200',
+                    y: b
+                }, {
+                    name: '1201-2000',
+                    y: c
+                }, {
+                    name: '2001-3000',
+                    y: d
+                }, {
+                    name: '+3000',
+                    y: e
+                }];
+
+            Highcharts.chart('eloCatalan-container', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Media elo Catalan'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                        name: 'Valores',
+                        colorByPoint: true,
+                        data: data
+                    }]
+            });
+            
+            
+            let array2 = [[${eloInternacional}]]
+            let f=0
+            let g=0
+            let h=0
+            let k=0
+            let j=0
+            for (var i = 0; i < array2.length; i++) {
+                if(array2[i] <=600){
+                    f++;
+                }else if(array2[i]>600&&array2[i]<=1200){
+                    g++;
+                }else if(array2[i]>1200&&array2[i]<=2000){
+                    h++;
+                }else if(array2[i]>2000&&array2[i]<=3000){
+                    k++;
+                }else if(array2[i]>3000){
+                    j++;
+                }
+            }
+            var data = [{
+                    name: '0-600',
+                    y: f
+                }, {
+                    name: '601-1200',
+                    y: g
+                }, {
+                    name: '1201-2000',
+                    y: h
+                }, {
+                    name: '2001-3000',
+                    y: k
+                }, {
+                    name: '+3000',
+                    y: j
+                }];
+
+            Highcharts.chart('eloInternacional-container', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Media elo Internacional'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                        name: 'Valores',
+                        colorByPoint: true,
+                        data: data
+                    }]
+            });
+
+        </script>
     </body>
 </html>
