@@ -3,7 +3,7 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Home</title>
         <meta charset="UTF-8">
@@ -14,13 +14,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
         <div class="toolbar">
 
-        </div>
-        <div id="div_botones">
-            <button onclick="location.href='/registrousers'"><img src="/img/Rey.png" alt="Descripción de la imagen"><h3>Registro Usuarios</h3></button>
-            <button onclick="location.href='/contabilidad'"><img src="/img/TheQuiin.png" alt="Descripción de la imagen"><h3>Contabilidad</h3></button>
-            <button onclick="location.href='/eventos'"><img src="/img/TheRooook.png" alt="Descripción de la imagen"><h3>Eventos</h3></button>
-            <button onclick="location.href='/suscriptions'"><img src="/img/bishop.png" alt="Descripción de la imagen"><h3>Suscripción</h3></button>
-            <button onclick="location.href='/informacion'"><img src="/img/pawn.png" alt="Descripción de la imagen"><h3>Información</h3></button>
+            <div id="div_botones">
+                <button th:if="${#authorization.expression('isAuthenticated()') and #authorization.expression('hasRole(''ROLE_ADMIN'')')}" onclick="location.href='/registrousers'">
+                    <img src="/img/Rey.png" alt="Descripción de la imagen"><h3>Registro Usuarios</h3>
+                </button>
+                <button th:if="${#authorization.expression('isAuthenticated()') and #authorization.expression('hasRole(''ROLE_USER'')')}" onclick="location.href='/players'">
+                    <img src="/img/Rey.png" alt="Descripción de la imagen"><h3>Player</h3>
+                </button>
+                <button th:if="${#authorization.expression('isAuthenticated()')}" onclick="location.href='/contabilidad'">
+                    <img src="/img/TheQuiin.png" alt="Descripción de la imagen"><h3>Contabilidad</h3>
+                </button>
+                <button th:if="${#authorization.expression('isAuthenticated()')}" onclick="location.href='/eventos'">
+                    <img src="/img/TheRooook.png" alt="Descripción de la imagen"><h3>Eventos</h3>
+                </button>
+                <button th:if="${#authorization.expression('isAuthenticated()')}" onclick="location.href='/suscriptions'">
+                    <img src="/img/bishop.png" alt="Descripción de la imagen"><h3>Suscripción</h3>
+                </button>
+                <button>
+                    <img src="/img/pawn.png" alt="Descripción de la imagen"><h3>Información</h3>
+                </button>
+            </div>
+
         </div>
 
     </body>

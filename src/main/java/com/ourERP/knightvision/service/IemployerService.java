@@ -18,6 +18,4 @@ public interface IemployerService {
     public Optional<Employer>listarId(int Employerid);
     
     public int save(Employer e);
-    
-    public void delete(Employer employer);
 }

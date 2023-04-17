@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Registro Jugadores</title>
+        <title>Registro Empleados</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
         <link href="/css/estilos_tablas.css" rel="stylesheet" type="text/css" />
+
         <!-- MODAL -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     </head>
@@ -19,25 +20,24 @@
     <body>
         <header th:include="/navbar.html :: header"> </header>
         <div class="container-fluid">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                 Añadir
             </button>
-            <div th:if="${players != null and !players.empty}">
+            <div th:if="${employers != null and !employers.empty}">
                 <table id="myTabla" class="table table-striped flex-fill">
                     <thead>
                         <tr>
                             <th scope="col">Nombre Usuario</th>
-                            <th scope="col">eloCatalan</th>
-                            <th scope="col">EloTotal</th>
-                            <th scope="col" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Accion</th>
+                            <th scope="col">Salario</th>
+                            <th scope="col">Tipo</th>
                         </tr>
                     </thead>
-                    <tr th:each="player: ${players}">
-                        <td th:text="${player.username}"></td> 
-                        <td th:text="${player.eloCatalan}"></td>
-                        <td th:text="${player.eloFide}"></td>
+                    <tr th:each="employer: ${employers}">
+                        <td th:text="${employer.username}"></td> 
+                        <td th:text="${employer.salary}"></td>
+                        <td th:text="${employer.type}"></td>
                         <td>
-                            <a class="cursor-pointer" th:data-parameter="${player.playerid}" onclick="rellenarModal(this.getAttribute('data-parameter'))" data-toggle="modal" data-target="#myModal" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                            <a class="cursor-pointer" th:data-parameter="${employer.employerid}" onclick="rellenarModal(this.getAttribute('data-parameter'))" data-toggle="modal" data-target="#myModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                 <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                                 </svg>
@@ -56,27 +56,27 @@
 
                     <!-- Cabecera del modal -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Añadir Jugador</h4>
+                        <h4 class="modal-title">Añadir Empleado</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Cuerpo del modal -->
                     <div class="modal-body">
-                        <form method="post" th:action="@{/registroPlayers}" th:object="${player}">
+                        <form method="post" th:action="@{/registroEmployers}" th:object="${employer}">
                             <label for="username">Nombre Usuario:</label>
                             <select th:field="*{username}" class="form-control" id="username" name="username">
                                 <option value="">Seleccionar usuario</option>
-                                <option th:each="user : ${users}" th:if="${user.rol == 2}" th:value="${user.username}" th:text="${user.username}"></option>
+                                <option th:each="user : ${users}" th:if="${user.rol == 1}" th:value="${user.username}" th:text="${user.username}"></option>
                             </select>
                             <div class="form-group">
-                                <label for="eloCatalan">eloCatalan:</label>
-                                <input th:field="*{eloCatalan}" type="text" class="form-control" id="eloCatalan"
-                                       name="eloCatalan">
+                                <label for="eloCatalan">Salario:</label>
+                                <input th:field="*{salary}" type="text" class="form-control" id="salary"
+                                       name="salary">
                             </div>
                             <div class="form-group">
-                                <label for="eloFile">EloFide:</label>
-                                <input th:field="*{eloFide}" type="text" class="form-control" id="eloFide"
-                                       name="eloFide">
+                                <label for="eloFile">Tipo:</label>
+                                <input th:field="*{type}" type="text" class="form-control" id="type"
+                                       name="type">
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
@@ -91,7 +91,7 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <!-- MODAL -->
+        <!<!-- MODAL -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -100,3 +100,4 @@
         <script src="/js/datatable.js"></script>
     </body>
 </html>
+
