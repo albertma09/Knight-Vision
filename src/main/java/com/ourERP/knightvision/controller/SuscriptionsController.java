@@ -41,8 +41,30 @@ public class SuscriptionsController {
         // suscripciones
         
         List<PlayersSuscription> playersSusc = suscriptionsService.listPlayersSuscription();
-        model.addAttribute("playersSusc", playersSusc);
         
+        List<Player> players = servicePlayer.listar();
+        
+        List<PlayersSuscriptionDTO> playersSusc1 = new ArrayList<>();
+        
+       
+        
+        for (int i = 0; i < playersSusc.size(); i++) {
+            
+            int suscid = playersSusc.get(i).getId().getSuscriptionid();
+            int idplayer = playersSusc.get(i).getId().getIdplayer();
+            String username = "";
+            
+            for (int j = 0; j < players.size() ; j++) {
+                if(players.get(i).getPlayerid()==idplayer){
+                    username = players.get(i).getUsername();
+                    break;
+                }
+            }
+            
+            playersSusc1.add(new PlayersSuscriptionDTO(suscid,idplayer,username));
+        }
+        
+         model.addAttribute("playersSusc", playersSusc1);
         List<SuscriptionAtribute> suscAtr = suscriptionsService.listSuscriptionsAtributes();
         model.addAttribute("suscAtr", suscAtr);
         
@@ -72,8 +94,6 @@ public class SuscriptionsController {
                     }
                 }
                 
-                //eliminar players
-                //TODO
                 suscriptionsService.borrarSuscriptions(susc.get(i));
                 break;
             }
@@ -83,20 +103,14 @@ public class SuscriptionsController {
     
     @GetMapping("/eliminarPlayerSuscription/{suscid}/{playerid}") 
     public String eliminarPlayerSuscription(@PathVariable int suscid, @PathVariable int playerid) {
+            
+            System.out.println("#############################################");
             System.out.println(suscid);
             System.out.println(playerid);
-            List<Player> players = servicePlayer.listar();
+            
             List<Suscriptions> suscriptions = suscriptionsService.listSuscriptions();
-            Player player = null;
             Suscriptions suscription = null;
-            
-            for (int i = 0; i < players.size(); i++) {
-                if(players.get(i).getPlayerid()==playerid){
-                    player = players.get(i);
-                    break;
-                }
-            }
-            
+
             for (int i = 0; i < suscriptions.size(); i++) {
                 if(suscriptions.get(i).getId()==suscid){
                     suscription = suscriptions.get(i);
@@ -106,7 +120,7 @@ public class SuscriptionsController {
             
             PlayersSuscriptionId psid= new PlayersSuscriptionId(playerid,suscid);
             
-            PlayersSuscription playerSusc = new PlayersSuscription(psid,player,suscription);
+            PlayersSuscription playerSusc = new PlayersSuscription(psid,suscription);
             
             suscriptionsService.borrarPlayersSuscription(playerSusc);
         return "redirect:/suscriptions"; 
@@ -117,17 +131,10 @@ public class SuscriptionsController {
             int suscid = playersSuscriptionDTO.getSuscid();
             int playerid = playersSuscriptionDTO.getPlayerid();
             
-            List<Player> players = servicePlayer.listar();
             List<Suscriptions> suscriptions = suscriptionsService.listSuscriptions();
-            Player player = null;
+
             Suscriptions suscription = null;
             
-            for (int i = 0; i < players.size(); i++) {
-                if(players.get(i).getPlayerid()==playerid){
-                    player = players.get(i);
-                    break;
-                }
-            }
             
             for (int i = 0; i < suscriptions.size(); i++) {
                 if(suscriptions.get(i).getId()==suscid){
@@ -138,7 +145,7 @@ public class SuscriptionsController {
             
             PlayersSuscriptionId psid= new PlayersSuscriptionId(playerid, suscid);
             
-            PlayersSuscription playerSusc = new PlayersSuscription(psid,player,suscription);
+            PlayersSuscription playerSusc = new PlayersSuscription(psid,suscription);
             suscriptionsService.salvarPlayersSuscription(playerSusc);
         return "redirect:/suscriptions"; 
     }
