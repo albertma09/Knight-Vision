@@ -24,6 +24,7 @@
                 <table id="myTabla" class="table table-striped flex-fill">
                     <thead>
                         <tr>
+                            <th scope="col">IdEmpleado</th>
                             <th scope="col">Nombre Usuario</th>
                             <th scope="col">Salario</th>
                             <th scope="col">Tipo</th>
@@ -31,6 +32,7 @@
                         </tr>
                     </thead>
                     <tr th:each="employer: ${employers}">
+                        <td th:text="${employer.Employeid}"></td>
                         <td th:text="${employer.username}"></td> 
                         <td th:text="${employer.salary}"></td>
                         <td th:text="${employer.type}"></td>

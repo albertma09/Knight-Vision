@@ -22,6 +22,7 @@
                 <table id="myTabla" class="table table-striped flex-fill">
                     <thead>
                         <tr>
+                            <th scope="col">IdPlayer</th>
                             <th scope="col">Nombre Usuario</th>
                             <th scope="col">eloCatalan</th>
                             <th scope="col">EloTotal</th>
@@ -29,6 +30,7 @@
                         </tr>
                     </thead>
                     <tr th:each="player: ${players}">
+                        <td th:text="${player.playerid}"></td>
                         <td th:text="${player.username}"></td> 
                         <td th:text="${player.eloCatalan}"></td>
                         <td th:text="${player.eloFide}" ></td>

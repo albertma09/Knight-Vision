@@ -24,6 +24,7 @@
                 <table id="myTabla" class="table table-striped flex-fill">
                     <thead>
                         <tr>
+                            <th scope="col">IdUsuario</th>
                             <th scope="col">Nombre Usuario</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
@@ -33,6 +34,7 @@
                         </tr>
                     </thead>
                     <tr th:each="user: ${users}">
+                        <td th:text="${user.userid}"></td>
                         <td th:text="${user.username}"></td> 
                         <td th:text="${user.name}"></td>
                         <td th:text="${user.lastname}"></td>
@@ -133,7 +135,7 @@
         <script>
             const dataTableOptions = {
                 columnDefs: [
-                    {orderable: false, targets: [1, 2, 3, 4, 5]},
+                    {orderable: false, targets: [2, 3, 4, 5]},
                     {searchable: false, targets: [1, 2]}
                 ],
                 destroy: true,
