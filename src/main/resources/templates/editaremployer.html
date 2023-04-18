@@ -24,24 +24,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 <!-- Cabecera del modal -->
                 <div class="card-header">
-                    <h4>Editar Jugador</h4>
+                    <h4>Editar Empleado</h4>
                 </div>
 
                 <!-- Cuerpo del modal -->
                 <div class="card-body">
-                    <form th:action="@{/editarplayer}" th:object="${player}" method="post">
-                        <input type="hidden" th:field="*{playerid}"/>
+                    <form th:action="@{/editaremployer}" th:object="${employer}" method="post">
+                        <input type="hidden" th:field="*{Employeid}"/>
                         <div class="form-group">
                             <label for="username">Nombre Usuario:</label>
                             <input type="text" class="form-control" th:field="*{username}" id="username" name="username" required readonly>
                         </div>
                         <div class="form-group">
-                            <label for="name">eloCatalan</label>
-                            <input type="text" class="form-control" th:field="*{eloCatalan}" id="eloCatalan" name="eloCatalan" required>
+                            <label for="name">Salario</label>
+                            <input type="text" class="form-control" th:field="*{salary}" id="salary" name="salary" required>
                         </div>
                         <div class="form-group">
-                            <label for="lastname">EloTotal:</label>
-                            <input type="text" class="form-control" th:field="*{eloFide}" id="eloFide" name="eloFide" required>
+                            <label for="lastname">Tipo</label>
+                            <input type="text" class="form-control" th:field="*{type}" id="type" name="type" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
