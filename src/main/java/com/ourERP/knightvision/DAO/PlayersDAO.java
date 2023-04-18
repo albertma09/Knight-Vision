@@ -5,8 +5,13 @@
 package com.ourERP.knightvision.DAO;
 
 import clases.usuario.Player;
+import clases.usuario.User;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -14,5 +19,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PlayersDAO extends CrudRepository<Player, Integer> {
+    @Transactional
+    @Modifying
+    void deleteByUsers(@Param("users") User user);
     
+    Optional<Player> findByUsers(User user);
 }

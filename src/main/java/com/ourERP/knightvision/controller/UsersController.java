@@ -4,7 +4,11 @@
  */
 package com.ourERP.knightvision.controller;
 
+import clases.usuario.Employer;
+import clases.usuario.Player;
 import clases.usuario.User;
+import com.ourERP.knightvision.service.IemployerService;
+import com.ourERP.knightvision.service.IplayerService;
 import com.ourERP.knightvision.service.IuserService;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -25,6 +30,12 @@ public class UsersController {
 
     @Autowired
     private IuserService serviceUser;
+
+    @Autowired
+    private IemployerService serviceEmploye;
+
+    @Autowired
+    private IplayerService servicePlayer;
 
     @GetMapping("/registrousers")
     public String irARegistroUsers(Model model) {
@@ -54,13 +65,24 @@ public class UsersController {
     }
 
     @GetMapping("/editarusuario/{userid}")
-    public String editar(@PathVariable("userid") int userid, Model model) {
-        Optional<User> user = serviceUser.listarId(userid);
-        if (user.isPresent()) {
-            model.addAttribute("user", user.get());
-            return "editUser";
+    public String editar(@PathVariable int userid, Model model) {
+        Optional<User> userOptional = serviceUser.listarId(userid);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            model.addAttribute("user", user);
+            return "editarusuario";
         } else {
             return "redirect:/registrousers";
         }
     }
+
+    @PostMapping("/editarusuario")
+    public String actualizarUsuario(@ModelAttribute("user") User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "editarusuario";
+        }
+        serviceUser.update(user);
+        return "redirect:/registrousers";
+    }
+
 }

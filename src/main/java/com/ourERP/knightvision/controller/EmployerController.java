@@ -10,15 +10,19 @@ import com.ourERP.knightvision.service.IemployerService;
 import com.ourERP.knightvision.service.IuserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
  * @author Alfred
  */
+@Controller
 public class EmployerController {
     
    @Autowired
@@ -27,7 +31,7 @@ public class EmployerController {
     @Autowired
     private IuserService serviceUser;
 
-    @GetMapping("/verEmployers")
+    @RequestMapping(value = "/verEmployers", method = RequestMethod.GET)
     public String irverEmployers(Model model) {
         List<User> users = serviceUser.listar();
         model.addAttribute("users", users);

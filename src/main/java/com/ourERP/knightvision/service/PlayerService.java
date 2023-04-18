@@ -5,6 +5,7 @@
 package com.ourERP.knightvision.service;
 
 import clases.usuario.Player;
+import clases.usuario.User;
 import com.ourERP.knightvision.DAO.PlayersDAO;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,9 @@ public class PlayerService implements IplayerService {
     @Autowired
     private PlayersDAO data;
 
+    @Autowired
+    private IuserService serviceUser;
+
     @Override
     public List<Player> listar() {
         return (List<Player>) data.findAll();
@@ -35,5 +39,16 @@ public class PlayerService implements IplayerService {
     public int save(Player p) {
         Player savedPlayer = data.save(p);
         return savedPlayer.getPlayerid();
+    }
+
+    @Override
+    public void delete(int userid) {
+        Optional<User> user = serviceUser.listarId(userid);
+        if (user.isPresent()) {
+            // Eliminar registros relacionados en la tabla "players"
+            data.deleteByUsers(user.get());
+            // Eliminar registro correspondiente en la tabla "users"
+            serviceUser.delete(userid);
+        }
     }
 }

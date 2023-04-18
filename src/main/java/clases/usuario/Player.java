@@ -39,7 +39,7 @@ public class Player implements Serializable {
     private int eloFide;
 
     @OneToOne
-    @JoinColumn(name = "iduser")
+    @JoinColumn(name = "iduser", referencedColumnName = "userid")
     private User users;
 
     public User getUser() {
@@ -47,11 +47,11 @@ public class Player implements Serializable {
     }
 
     public void setUser(User user) {
-    this.users = user;
-    if (user != null) {
-        this.users.getUserid();
+        this.users = user;
+        if (user != null) {
+            this.users.getUserid();
+        }
     }
-}
 
     public int getUserid() {
         if (this.users != null) {
@@ -60,10 +60,10 @@ public class Player implements Serializable {
             return 0;
         }
     }
-    
+
     public void setIduser(int iduser) {
-    if (this.users != null) {
-        this.users.setUserid(iduser);
+        if (this.users != null) {
+            this.users.setUserid(iduser);
+        }
     }
-}
 }

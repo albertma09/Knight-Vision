@@ -13,15 +13,16 @@ import java.util.Optional;
  * @author Alfred
  */
 public interface IuserService {
-    public List<User>listar();
-    
-    public Optional<User>listarId(int userid);
-    
+
+    public List<User> listar();
+
+    public Optional<User> listarId(int userid);
+
     public int save(User u);
-    
+
     public void delete(int userid);
     
-     public User editar(User user);
-     
-     public User findByUsername(String username);
+    public int update(User u);
+
+    public User findByUsername(String username);
 }

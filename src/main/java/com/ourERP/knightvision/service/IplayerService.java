@@ -5,6 +5,7 @@
 package com.ourERP.knightvision.service;
 
 import clases.usuario.Player;
+import clases.usuario.User;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,4 +19,6 @@ public interface IplayerService {
     public Optional<Player>listarId(int Playerid);
     
     public int save(Player p);
+    
+    public void delete(int userid);
 }

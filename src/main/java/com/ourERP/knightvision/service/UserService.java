@@ -4,7 +4,11 @@
  */
 package com.ourERP.knightvision.service;
 
+import clases.usuario.Employer;
+import clases.usuario.Player;
 import clases.usuario.User;
+import com.ourERP.knightvision.DAO.EmployersDAO;
+import com.ourERP.knightvision.DAO.PlayersDAO;
 import com.ourERP.knightvision.DAO.UsersDAO2;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +25,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService implements IuserService {
 
     @Autowired
-    private UsersDAO2 data;
+    private UsersDAO2 userData;
+
+    @Autowired
+    PlayersDAO playerData;
+
+    @Autowired
+    EmployersDAO employerData;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -29,12 +39,12 @@ public class UserService implements IuserService {
     @Override
     @Transactional(readOnly = true)
     public List<User> listar() {
-        return (List<User>) data.findAll();
+        return (List<User>) userData.findAll();
     }
 
     @Override
     public Optional<User> listarId(int userid) {
-        return data.findById(userid);
+        return userData.findById(userid);
     }
 
     @Override
@@ -42,7 +52,23 @@ public class UserService implements IuserService {
         int res = 0;
         String encodedPassword = encoder.encode(u.getPassword()); // Encriptar la contraseña
         u.setPassword(encodedPassword); // Asignar la contraseña encriptada al objeto User
-        User user = data.save(u); // Guardar el objeto User en la base de datos
+
+        // Crear el usuario en la tabla User
+        User user = userData.save(u);
+
+        // Crear el usuario en la tabla correspondiente según el rol
+        if (u.getRol() == 1) { // Employer
+            Employer employer = new Employer();
+            employer.setUsername(u.getUsername());
+            employer.setUser(user);
+            employerData.save(employer);
+        } else if (u.getRol() == 2) { // Player
+            Player player = new Player();
+            player.setUsername(u.getUsername());
+            player.setUser(user);
+            playerData.save(player);
+        }
+
         if (user != null) {
             res = 1;
         }
@@ -50,17 +76,61 @@ public class UserService implements IuserService {
     }
 
     @Override
-    public void delete(int userid) {
-        data.deleteById(userid);
+    public int update(User user) {
+        int result = 0;
+
+        User existingUser = userData.findById(user.getUserid()).orElse(null);
+        if (existingUser != null) {
+            // Check if the password has been modified
+            if (user.getPassword().equals(existingUser.getPassword())) {
+                // Use the existing password
+                user.setPassword(existingUser.getPassword());
+            } else {
+                // Encode the new password
+                user.setPassword(encoder.encode(user.getPassword()));
+            }
+
+            // Save user
+            User savedUser = userData.save(user);
+
+            // Update user in employer or player tables
+            if (user.getRol() == 1) {
+                Optional<Employer> optionalEmployer = employerData.findByUsers(savedUser);
+                if (optionalEmployer.isPresent()) {
+                    Employer employer = optionalEmployer.get();
+                    employer.setUser(savedUser);
+                    employer.setUsername(savedUser.getUsername());
+                    employerData.save(employer);
+                }
+            } else if (user.getRol() == 2) {
+                Optional<Player> optionalPlayer = playerData.findByUsers(savedUser);
+                if (optionalPlayer.isPresent()) {
+                    Player player = optionalPlayer.get();
+                    player.setUser(savedUser);
+                    player.setUsername(savedUser.getUsername());
+                    playerData.save(player);
+                }
+            }
+
+            result = 1;
+        }
+
+        return result;
     }
 
     @Override
-    public User editar(User user) {
-         return this.data.findById(user.getUserid()).orElse(null);
+    public void delete(int userid) {
+        Optional<User> user = listarId(userid);
+        if (user.isPresent()) {
+            // Eliminar registros relacionados en la tabla "players"
+            playerData.deleteByUsers(user.get());
+            // Eliminar registro correspondiente en la tabla "users"
+            userData.deleteById(userid);
+        }
     }
 
     @Override
     public User findByUsername(String username) {
-        return this.data.findByUsername(username);
+        return this.userData.findByUsername(username);
     }
 }

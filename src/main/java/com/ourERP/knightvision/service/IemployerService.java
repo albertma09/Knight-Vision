@@ -5,6 +5,7 @@
 package com.ourERP.knightvision.service;
 
 import clases.usuario.Employer;
+import clases.usuario.User;
 import java.util.List;
 import java.util.Optional;
 
