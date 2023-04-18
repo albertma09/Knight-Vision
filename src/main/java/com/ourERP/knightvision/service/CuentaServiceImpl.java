@@ -48,6 +48,5 @@ public class CuentaServiceImpl implements CuentaService {
     @Transactional(readOnly = true)
     public Cuenta localizarCuenta(Cuenta cuenta) {
         return cuentaDAO.findById(cuenta.getBankaccountid()).orElse(null);
-
     }
 }

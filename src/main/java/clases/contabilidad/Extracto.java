@@ -6,7 +6,7 @@ package clases.contabilidad;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  *
@@ -22,14 +22,14 @@ public class Extracto implements Serializable {
     @Id //defineix la clau primaria de la taula
     @GeneratedValue(strategy = GenerationType.IDENTITY) //defineix que el id és autogenerat per la base de dades i és de tipus AI (autoincrement)
     private int bankstatementid;
-    private Timestamp startdate;
-    private Timestamp enddate;
+    private Date startdate;
+    private Date enddate;
     private int bankaccountid;
 
     public Extracto() {
     }
 
-    public Extracto(int bankstatementid, Timestamp startdate, Timestamp enddate, int bankaccountid) {
+    public Extracto(int bankstatementid, Date startdate, Date enddate, int bankaccountid) {
         this.bankstatementid = bankstatementid;
         this.startdate = startdate;
         this.enddate = enddate;
@@ -44,19 +44,19 @@ public class Extracto implements Serializable {
         this.bankstatementid = bankstatementid;
     }
 
-    public Timestamp getStartdate() {
+    public Date getStartdate() {
         return startdate;
     }
 
-    public void setStartdate(Timestamp startdate) {
+    public void setStartdate(Date startdate) {
         this.startdate = startdate;
     }
 
-    public Timestamp getEnddate() {
+    public Date getEnddate() {
         return enddate;
     }
 
-    public void setEnddate(Timestamp enddate) {
+    public void setEnddate(Date enddate) {
         this.enddate = enddate;
     }
 
