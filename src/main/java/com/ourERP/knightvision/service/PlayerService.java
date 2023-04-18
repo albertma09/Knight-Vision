@@ -20,24 +20,24 @@ import org.springframework.stereotype.Service;
 public class PlayerService implements IplayerService {
 
     @Autowired
-    private PlayersDAO data;
+    private PlayersDAO playerData;
 
     @Autowired
     private IuserService serviceUser;
 
     @Override
     public List<Player> listar() {
-        return (List<Player>) data.findAll();
+        return (List<Player>) playerData.findAll();
     }
 
     @Override
     public Optional<Player> listarId(int Playerid) {
-        return data.findById(Playerid);
+        return playerData.findById(Playerid);
     }
 
     @Override
     public int save(Player p) {
-        Player savedPlayer = data.save(p);
+        Player savedPlayer = playerData.save(p);
         return savedPlayer.getPlayerid();
     }
 
@@ -46,9 +46,14 @@ public class PlayerService implements IplayerService {
         Optional<User> user = serviceUser.listarId(userid);
         if (user.isPresent()) {
             // Eliminar registros relacionados en la tabla "players"
-            data.deleteByUsers(user.get());
+            playerData.deleteByUsers(user.get());
             // Eliminar registro correspondiente en la tabla "users"
             serviceUser.delete(userid);
         }
+    }
+
+    @Override
+    public Optional<Player> findById(int playerid) {
+        return playerData.findById(playerid);
     }
 }

@@ -48,16 +48,13 @@ public class Player implements Serializable {
 
     public void setUser(User user) {
         this.users = user;
-        if (user != null) {
-            this.users.getUserid();
-        }
     }
 
-    public int getUserid() {
+    public Integer getUserid() {
         if (this.users != null) {
             return this.users.getUserid();
         } else {
-            return 0;
+            return null;
         }
     }
 
