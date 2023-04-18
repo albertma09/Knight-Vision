@@ -70,6 +70,7 @@ public class UsersController {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             model.addAttribute("user", user);
+            model.addAttribute("rolInicial", user.getRol());
             return "editarusuario";
         } else {
             return "redirect:/registrousers";
@@ -84,5 +85,4 @@ public class UsersController {
         serviceUser.update(user);
         return "redirect:/registrousers";
     }
-
 }

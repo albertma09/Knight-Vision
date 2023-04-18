@@ -32,7 +32,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <!-- Cuerpo del modal -->
                 <div class="card-body">
                     <form th:action="@{/editarusuario}" th:object="${user}" method="post">
-                        <input type="hidden" th:field="*{userid}" />
+                        <input type="hidden" th:field="*{userid}"/>
+                        <input type="hidden" th:name="rolInicial" th:value="${rolInicial}"/>
                         <div class="form-group">
                             <label for="username">Nombre Usuario:</label>
                             <input type="text" class="form-control" th:field="*{username}" id="username" name="username" required>

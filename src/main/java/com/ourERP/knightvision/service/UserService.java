@@ -11,6 +11,7 @@ import com.ourERP.knightvision.DAO.EmployersDAO;
 import com.ourERP.knightvision.DAO.PlayersDAO;
 import com.ourERP.knightvision.DAO.UsersDAO2;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -93,19 +94,29 @@ public class UserService implements IuserService {
             // Save user
             User savedUser = userData.save(user);
 
-            // Update user in employer or player tables
-            if (user.getRol() == 1) {
-                Optional<Employer> optionalEmployer = employerData.findByUsers(savedUser);
-                if (optionalEmployer.isPresent()) {
-                    Employer employer = optionalEmployer.get();
+            // Check if the role has changed
+            if (!Objects.equals(existingUser.getRol(), savedUser.getRol())) {
+                // Delete user from the corresponding table
+                if (existingUser.getRol() == 1) {
+                    Optional<Employer> optionalEmployer = employerData.findByUsers(existingUser);
+                    if (optionalEmployer.isPresent()) {
+                        employerData.deleteById(optionalEmployer.get().getEmployeid());
+                    }
+                } else if (existingUser.getRol() == 2) {
+                    Optional<Player> optionalPlayer = playerData.findByUsers(existingUser);
+                    if (optionalPlayer.isPresent()) {
+                        playerData.deleteById(optionalPlayer.get().getPlayerid());
+                    }
+                }
+
+                // Add user to the other table
+                if (savedUser.getRol() == 1) {
+                    Employer employer = new Employer();
                     employer.setUser(savedUser);
                     employer.setUsername(savedUser.getUsername());
                     employerData.save(employer);
-                }
-            } else if (user.getRol() == 2) {
-                Optional<Player> optionalPlayer = playerData.findByUsers(savedUser);
-                if (optionalPlayer.isPresent()) {
-                    Player player = optionalPlayer.get();
+                } else if (savedUser.getRol() == 2) {
+                    Player player = new Player();
                     player.setUser(savedUser);
                     player.setUsername(savedUser.getUsername());
                     playerData.save(player);
