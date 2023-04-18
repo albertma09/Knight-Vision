@@ -12,7 +12,7 @@
         <header th:insert="/navbar.html :: header"> </header>
         <div class="container-fluid">
             <div class="text-end">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                <button type="button" class="btn btn-primary" onclick="vaciarModal()" data-toggle="modal" data-target="#myModal">
                     Añadir
                 </button>
             </div>
@@ -88,7 +88,7 @@
 
                                 <div class="modal-footer">
                                     <input type="submit" value="Guardar" class="btn btn-primary"/>
-                                    <button type="button" onclick="vaciarModal()" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 
                                 </div>
                             </form>
