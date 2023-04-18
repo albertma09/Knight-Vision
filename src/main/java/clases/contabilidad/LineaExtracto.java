@@ -6,7 +6,7 @@ package clases.contabilidad;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -19,9 +19,10 @@ public class LineaExtracto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
-    private LineaExtractoPK lineaExtractoPK;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int bankstatementdetailid;
+    private int bankstatementid;
     private Date eventdate;
     private String thirdparty;
     private float amount;
@@ -30,20 +31,29 @@ public class LineaExtracto implements Serializable {
     public LineaExtracto() {
     }
 
-    public LineaExtracto(LineaExtractoPK lineaExtractoPK, Date eventdate, String thirdparty, float amount, String pagoocobro) {
-        this.lineaExtractoPK = lineaExtractoPK;
+    public LineaExtracto(int bankstatementdetailid, int bankstatementid, Date eventdate, String thirdparty, float amount, String pagoocobro) {
+        this.bankstatementdetailid = bankstatementdetailid;
+        this.bankstatementid = bankstatementid;
         this.eventdate = eventdate;
         this.thirdparty = thirdparty;
         this.amount = amount;
         this.pagoocobro = pagoocobro;
     }
 
-    public LineaExtractoPK getLineaExtractoPK() {
-        return lineaExtractoPK;
+    public int getBankstatementdetailid() {
+        return bankstatementdetailid;
     }
 
-    public void setLineaExtractoPK(LineaExtractoPK lineaExtractoPK) {
-        this.lineaExtractoPK = lineaExtractoPK;
+    public void setBankstatementdetailid(int bankstatementdetailid) {
+        this.bankstatementdetailid = bankstatementdetailid;
+    }
+
+    public int getBankstatementid() {
+        return bankstatementid;
+    }
+
+    public void setBankstatementid(int bankstatementid) {
+        this.bankstatementid = bankstatementid;
     }
 
     public Date getEventdate() {
@@ -80,7 +90,7 @@ public class LineaExtracto implements Serializable {
 
     @Override
     public String toString() {
-        return "LineaExtracto{" + "lineaExtractoPK=" + lineaExtractoPK + ", eventdate=" + eventdate + ", thirdparty=" + thirdparty + ", amount=" + amount + ", pagoocobro=" + pagoocobro + '}';
+        return "LineaExtracto{" + "bankstatementid=" + bankstatementid + ", bankstatementdetailid=" + bankstatementdetailid + ", eventdate=" + eventdate + ", thirdparty=" + thirdparty + ", amount=" + amount + ", pagoocobro=" + pagoocobro + '}';
     }
 
 }

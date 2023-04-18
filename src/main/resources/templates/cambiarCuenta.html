@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Editar</title>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+                    </head>
+                    <body>
+                        <h1>Datos de la cuenta</h1>
+                        <form th:action="@{/salvarCuenta}" method="post" th:object="${cuenta}" >
+                            <div class="container-fluid">
+                                <input type="hidden" name="bankaccountid" th:field="*{bankaccountid}"
+
+                                       <label for="bank"> Banco: </label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" name="bank" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field = "*{bank}"/>
+                                    </div>
+
+                                    </br>
+                                    <label for="accountnumber"> Número de cuenta: </label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" name="accountnumber" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field = "*{accountnumber}"/>
+                                    </div>
+                                    </br>
+                                    <label for="panoja"> Capital: </label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="number" name="panoja" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:field = "*{panoja}"/>    
+                                    </div>
+
+                                    </br>
+
+                                    <input type ="submit" name="salvar" class="btn btn-primary" value="Guardar Cuenta"/>
+                            </div>
+                        </form>
+                    </body>
+                    </html>
