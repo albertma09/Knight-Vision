@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Editar Jugadores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- DATATABLES -->
+        <!--  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> -->
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+        <link href="/css/estilos_tablas.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+                <header th:include="/navbar.html :: header"> </header>
+        <!-- Modal -->
+        <div class="container mt-1">
+            <div class="col-sm-6 mx-auto">
+
+                <!-- Cabecera del modal -->
+                <div class="card-header">
+                    <h4>Editar Empleado</h4>
+                </div>
+
+                <!-- Cuerpo del modal -->
+                <div class="card-body">
+                    <form th:action="@{/editaremployer}" th:object="${employer}" method="post">
+                        <input type="hidden" th:field="*{Employeid}"/>
+                        <div class="form-group">
+                            <label for="username">Nombre Usuario:</label>
+                            <input type="text" class="form-control" th:field="*{username}" id="username" name="username" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Salario</label>
+                            <input type="text" class="form-control" th:field="*{salary}" id="salary" name="salary" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Tipo</label>
+                            <input type="text" class="form-control" th:field="*{type}" id="type" name="type" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
