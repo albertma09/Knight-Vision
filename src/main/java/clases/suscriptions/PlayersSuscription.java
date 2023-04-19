@@ -34,19 +34,14 @@ public class PlayersSuscription implements Serializable {
     private PlayersSuscriptionId id;
 
     @ManyToOne
-    @JoinColumn(name = "idplayer", insertable = false, updatable = false)
-    private Player player;
-
-    @ManyToOne
     @JoinColumn(name = "idsuscription", insertable = false, updatable = false)
     private Suscriptions suscription;
 
     // Constructors
     public PlayersSuscription() {}
 
-    public PlayersSuscription(PlayersSuscriptionId id, Player player, Suscriptions suscription) {
+    public PlayersSuscription(PlayersSuscriptionId id, Suscriptions suscription) {
         this.id = id;
-        this.player = player;
         this.suscription = suscription;
     }
 
@@ -57,14 +52,6 @@ public class PlayersSuscription implements Serializable {
 
     public void setId(PlayersSuscriptionId id) {
         this.id = id;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
     public Suscriptions getSuscription() {

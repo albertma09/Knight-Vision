@@ -34,12 +34,7 @@ public class EmployerService implements IemployerService {
 
     @Override
     public int save(Employer e) {
-        return 0;
+        Employer savedEmployer = data.save(e);
+        return savedEmployer.getEmployeid();
     }
-
-    @Override
-    public void delete(Employer employer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 }

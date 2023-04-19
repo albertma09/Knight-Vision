@@ -43,10 +43,10 @@ public class LineaExtractoServiceImpl implements LineaExtractoService {
         lineaExtractoDAO.delete(lineaExtracto);
     }
 
-//    @Override
-//    @Transactional(readOnly = true)
-//    public LineaExtracto localizarLineaExtracto(LineaExtracto lineaExtracto) {
-//        return lineaExtractoDAO.findById(lineaExtracto.getLineaExtractoPK()).orElse(null);
-//
-//    }
+    @Override
+    @Transactional(readOnly = true)
+    public LineaExtracto localizarLineaExtracto(LineaExtracto lineaExtracto) {
+        return lineaExtractoDAO.findById(lineaExtracto.getBankstatementdetailid()).orElse(null);
+
+    }
 }

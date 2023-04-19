@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -24,10 +25,37 @@ public class ControladorLineaExtracto {
 
     @GetMapping("/lineasExtracto")
     public String comienzo(Model model) {
+        model.addAttribute("nav", "Líneas de Extracto");
 
         List<LineaExtracto> lineasExtracto = lineaExtractoService.listLineasExtracto();
         model.addAttribute("lineasExtracto", lineasExtracto);
 
         return "lineasExtracto";
+    }
+
+    @GetMapping("/anexarLineaExtracto")
+    public String agnadir(LineaExtracto lineaExtracto) {
+
+        return "cambiarLineaExtracto";
+    }
+
+    @PostMapping("/salvarLineaExtracto")
+    public String salvar(LineaExtracto lineaExtracto) {
+        lineaExtractoService.salvar(lineaExtracto);
+        return "redirect:/lineasExtracto";
+
+    }
+
+    @GetMapping("/cambiarLineaExtracto/{bankstatementdetailid}")
+    public String cambiar(LineaExtracto lineaExtracto, Model model) {
+        lineaExtracto = lineaExtractoService.localizarLineaExtracto(lineaExtracto);
+        model.addAttribute("lineaExtracto", lineaExtracto);
+        return "cambiarLineaExtracto";
+    }
+
+    @GetMapping("/borrarLineaExtracto/{bankstatementdetailid}")
+    public String borrar(LineaExtracto lineaExtracto) {
+        lineaExtractoService.borrar(lineaExtracto);
+        return "redirect:/lineasExtracto";
     }
 }

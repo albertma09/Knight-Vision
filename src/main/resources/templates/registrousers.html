@@ -5,8 +5,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <!-- DATATABLES -->
-        <!--  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> -->
         <!-- BOOTSTRAP -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
@@ -26,6 +24,7 @@
                 <table id="myTabla" class="table table-striped flex-fill">
                     <thead>
                         <tr>
+                            <th scope="col">IdUsuario</th>
                             <th scope="col">Nombre Usuario</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
@@ -35,30 +34,33 @@
                         </tr>
                     </thead>
                     <tr th:each="user: ${users}">
+                        <td th:text="${user.userid}"></td>
                         <td th:text="${user.username}"></td> 
                         <td th:text="${user.name}"></td>
                         <td th:text="${user.lastname}"></td>
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.rol == 1 ? 'ADMIN' : 'USER'}"></td>
                         <td>
-                            <a th:href="@{/eliminaruser/}+${user.userid}">
+                            <a th:href="@{/eliminarusuario/}+${user.userid}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                 </svg>
                             </a>
-                            <a class="cursor-pointer" th:data-parameter="${user.userid}" onclick="rellenarModal(this.getAttribute('data-parameter'))" data-toggle="modal" data-target="#myModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                            <a th:href="@{/editarusuario/{userid}(userid=${user.userid})}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
                                 </svg>
                             </a>
                         </td>
                     </tr>
-
                 </table>
             </div>
         </div>
-        <a class="btn btn-primary" href="/verPlayers">Ver Players</a>
+        <a class="btn btn-primary" href="/verPlayers">Ver Jugadores</a>
+        <a class="btn btn-primary" href="/verEmployers">Ver Empleados</a>
 
         <!-- Modal -->
         <div class="modal" id="myModal">
@@ -74,7 +76,7 @@
                     <!-- Cuerpo del modal -->
                     <div class="modal-body">
                         <form method="post" th:action="@{/registroUsers}" th:object="${user}">
-                            <input type="hidden" name="userid" id="userid"/>
+                            <input type="hidden" name="id" id="id"/>
 
                             <div class="form-group">
                                 <label for="username">Nombre Usuario:</label>
@@ -113,25 +115,49 @@
                         </form>
                     </div>
                 </div>
-            </div> 
+            </div>
+        </div>
 
-            <!-- JQUERY -->
-            <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-            <!-- BOOTSTRAP -->
-            <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            <!<!-- MODAL -->
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-            <!<!-- ALERTS -->
-            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-            <script>
-                                $(document).ready(function () {
-                                    $('#myTabla').DataTable();
-                                });
-            </script>
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <!-- BOOTSTRAP -->
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- MODAL -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <!<!-- ALERTS -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- CUSTOM JS -->
+        <script>
+            const dataTableOptions = {
+                columnDefs: [
+                    {orderable: false, targets: [2, 3, 4, 5]},
+                    {searchable: false, targets: [1, 2]}
+                ],
+                destroy: true,
+                language: {
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "Ningún usuario encontrado",
+                    info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
+                    infoEmpty: "Ningún usuario encontrado",
+                    infoFiltered: "(filtrados desde _MAX_ registros totales)",
+                    search: "Buscar:",
+                    loadingRecords: "Cargando...",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Anterior"
+                    }
+                }
+            };
+
+            dataTable = $("#myTabla").DataTable(dataTableOptions);
+        </script>
+
     </body>
 </html>

@@ -4,7 +4,6 @@
  */
 package clases.usuario;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,11 +39,28 @@ public class Player implements Serializable {
     private int eloFide;
 
     @OneToOne
-    @JoinColumn(name = "iduser")
+    @JoinColumn(name = "iduser", referencedColumnName = "userid")
     private User users;
 
-    public int getIduser() {
-    return users != null ? users.getIduser() : 0; // Retorna 0 si users es nulo
-}
-}
+    public User getUser() {
+        return this.users;
+    }
 
+    public void setUser(User user) {
+        this.users = user;
+    }
+
+    public Integer getUserid() {
+        if (this.users != null) {
+            return this.users.getUserid();
+        } else {
+            return null;
+        }
+    }
+
+    public void setIduser(int iduser) {
+        if (this.users != null) {
+            this.users.setUserid(iduser);
+        }
+    }
+}

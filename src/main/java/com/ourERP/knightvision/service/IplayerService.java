@@ -19,5 +19,7 @@ public interface IplayerService {
     
     public int save(Player p);
     
-    public void delete(Player player);
+    public void delete(int userid);
+    
+    public Optional<Player> findById(int id);
 }

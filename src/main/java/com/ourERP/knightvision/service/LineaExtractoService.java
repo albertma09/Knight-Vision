@@ -19,5 +19,5 @@ public interface LineaExtractoService {
 
     public void borrar(LineaExtracto lineaExtracto);
 
-    //public LineaExtracto localizarLineaExtracto(LineaExtracto lineaExtracto);
+    public LineaExtracto localizarLineaExtracto(LineaExtracto lineaExtracto);
 }

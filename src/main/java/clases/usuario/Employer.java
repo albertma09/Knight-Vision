@@ -14,8 +14,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Data;
 
 /**
@@ -41,7 +39,32 @@ public class Employer implements Serializable{
     private String type;
 
     @OneToOne
-    @JoinColumn(name = "iduser")
+    @JoinColumn(name = "iduser", referencedColumnName = "userid")
     private User users;
+    
+   public User getUser() {
+        return this.users;
+    }
+
+    public void setUser(User user) {
+        this.users = user;
+        if (user != null) {
+            this.users.getUserid();
+        }
+    }
+
+    public int getUserid() {
+        if (this.users != null) {
+            return this.users.getUserid();
+        } else {
+            return 0;
+        }
+    }
+
+    public void setIduser(int iduser) {
+        if (this.users != null) {
+            this.users.setUserid(iduser);
+        }
+    }
     
 }
