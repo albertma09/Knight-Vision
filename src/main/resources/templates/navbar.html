@@ -22,7 +22,8 @@
 
     <div class="abierto">
         <ul class="menu">
-            <li><a href="/registrousers">Registro Usuarios</a></li>
+            <li th:if="${#authorization.expression('isAuthenticated()') and #authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a href="/registrousers">Registro Usuarios</a></li>
+            <li th:if="${#authorization.expression('isAuthenticated()') and #authorization.expression('hasRole(''ROLE_USER'')')}"><a href="/players">Players</a></li>
             <li><a href="/contabilidad">Contabilidad</a></li>
             <li><a href="/eventos">Eventos</a></li>
             <li><a href="/suscriptions">Suscripción</a></li>
