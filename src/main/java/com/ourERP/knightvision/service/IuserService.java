@@ -22,7 +22,9 @@ public interface IuserService {
 
     public void delete(int userid);
     
-    public int update(User u);
+    public int update(User user);
 
     public User findByUsername(String username);
+
+    public Optional<User> findByEmail(String email);
 }

@@ -81,6 +81,7 @@ public class UserService implements IuserService {
         int result = 0;
 
         User existingUser = userData.findById(user.getUserid()).orElse(null);
+
         if (existingUser != null) {
             // Check if the password has been modified
             if (user.getPassword().equals(existingUser.getPassword())) {
@@ -89,6 +90,49 @@ public class UserService implements IuserService {
             } else {
                 // Encode the new password
                 user.setPassword(encoder.encode(user.getPassword()));
+            }
+
+            // Check if the role has changed
+            if (!Objects.equals(existingUser.getRol(), user.getRol())) {
+                // Delete user from the corresponding table
+                if (existingUser.getRol() == 1) {
+                    Optional<Employer> optionalEmployer = employerData.findByUsers(existingUser);
+                    if (optionalEmployer.isPresent()) {
+                        employerData.deleteById(optionalEmployer.get().getEmployeid());
+                    }
+                } else if (existingUser.getRol() == 2) {
+                    Optional<Player> optionalPlayer = playerData.findByUsers(existingUser);
+                    if (optionalPlayer.isPresent()) {
+                        playerData.deleteById(optionalPlayer.get().getPlayerid());
+                    }
+                }
+
+                // Add user to the other table
+                if (user.getRol() == 1) {
+                    // Delete existing user from player table
+                    Optional<Player> optionalPlayer = playerData.findByUsers(existingUser);
+                    if (optionalPlayer.isPresent()) {
+                        playerData.deleteById(optionalPlayer.get().getPlayerid());
+                    }
+
+                    // Add user to employer table
+                    Employer employer = new Employer();
+                    employer.setUser(user);
+                    employer.setUsername(user.getUsername());
+                    employerData.save(employer);
+                } else if (user.getRol() == 2) {
+                    // Delete existing user from employer table
+                    Optional<Employer> optionalEmployer = employerData.findByUsers(existingUser);
+                    if (optionalEmployer.isPresent()) {
+                        employerData.deleteById(optionalEmployer.get().getEmployeid());
+                    }
+
+                    // Add user to player table
+                    Player player = new Player();
+                    player.setUser(user);
+                    player.setUsername(user.getUsername());
+                    playerData.save(player);
+                }
             }
 
             // Check if the username has been modified
@@ -113,9 +157,18 @@ public class UserService implements IuserService {
                         playerData.save(player);
                     }
                 }
-            } else {
-                userData.save(user);
+            }  // Check if the email has been modified
+            if (!Objects.equals(existingUser.getEmail(), user.getEmail())) {
+                // Check if the new email already exists
+                if (userData.findByEmail(user.getEmail()).isPresent()) {
+                    // The new email already exists
+                    return result;
+                } else {
+                    // Update the email
+                    existingUser.setEmail(user.getEmail());
+                }
             }
+            userData.save(user);
 
             result = 1;
         }
@@ -137,5 +190,10 @@ public class UserService implements IuserService {
     @Override
     public User findByUsername(String username) {
         return this.userData.findByUsername(username);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userData.findByEmail(email);
     }
 }
