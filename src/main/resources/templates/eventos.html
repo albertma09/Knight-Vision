@@ -12,7 +12,7 @@
         <header th:insert="/navbar.html :: header"> </header>
         <div class="container-fluid">
             <div class="text-end">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                <button type="button" class="btn btn-primary" onclick="vaciarModal()" data-toggle="modal" data-target="#myModal">
                     Añadir
                 </button>
             </div>
@@ -62,7 +62,7 @@
 
                         <!-- Cabecera del modal -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Título del modal</h4>
+                            <h4 class="modal-title">Añadir</h4>
                         </div>
 
                         <!-- Cuerpo del modal -->
@@ -104,7 +104,9 @@
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            
             <script th:inline="javascript">
+                                    
                                     const rellenarModal = (a) => {
                                         let array = [[${eventos}]]
                                         let evento = array.find(p => p.id == a)
@@ -122,6 +124,23 @@
                                         var fechaFinal = document.getElementById("fecha-final")
                                         var fechaFin = evento.fechaFin.split(" ")
                                         fechaFinal.value = fechaFin[0]
+                                    }
+                                    
+                                    
+            </script>
+            
+            <script th:inline="javascript">
+                const vaciarModal = ()=>{
+                                        var id = document.getElementById("id")
+                                        id.value = null
+                                        var nombre = document.getElementById("nombre")
+                                        nombre.value = null
+                                        var tipo = document.getElementById("tipo")
+                                        tipo.value = null
+                                        var fechaInicial = document.getElementById("fecha-inicial")
+                                        fechaInicial.value = "2023-01-01"
+                                        var fechaFinal = document.getElementById("fecha-final")
+                                        fechaFinal.value = "2023-01-01"
                                     }
             </script>
     </body>

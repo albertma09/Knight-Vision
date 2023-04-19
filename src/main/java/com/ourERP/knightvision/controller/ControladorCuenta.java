@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -24,6 +25,7 @@ public class ControladorCuenta {
 
     @GetMapping("/cuentas")
     public String comienzo(Model model) {
+        model.addAttribute("nav", "Cuentas");
 
         List<Cuenta> cuentas = cuentaService.listCuentas();
         model.addAttribute("cuentas", cuentas);
@@ -31,9 +33,42 @@ public class ControladorCuenta {
         return "cuentas";
     }
 
-//    @GetMapping("/anexar")
-//    public String añadir(Cuenta cuenta) {
-//
-//        return "cambiarCuenta";
+    @GetMapping("/anexarCuenta")
+    public String agnadir(Cuenta cuenta) {
+
+        return "cambiarCuenta";
+    }
+
+    @PostMapping("/salvarCuenta")
+    public String salvar(Cuenta cuenta) {
+        cuentaService.salvar(cuenta);
+        return "redirect:/cuentas";
+
+    }
+
+    @GetMapping("/cambiarCuenta/{bankaccountid}")
+    public String cambiar(Cuenta cuenta, Model model) {
+        cuenta = cuentaService.localizarCuenta(cuenta);
+        model.addAttribute("cuenta", cuenta);
+        return "cambiarCuenta";
+    }
+    //method persist() for save item to Jpa virtual data base;
+//    @RequestMapping(value = "/save", method = RequestMethod.POST)
+//    public String save(Cuenta cuenta) {
+//        cuentaService.salvar(cuenta);
+//        return "redirect:/";
 //    }
+//
+//    //method update for find & edit item by item Id;
+//    @GetMapping("/edit")
+//    @ResponseBody
+//    public Optional<Cuenta> update(Integer id) {
+//        return cuentaService.localizarCuenta(id);
+//    }
+
+    @GetMapping("/borrarCuenta/{bankaccountid}")
+    public String borrar(Cuenta cuenta) {
+        cuentaService.borrar(cuenta);
+        return "redirect:/cuentas";
+    }
 }

@@ -179,38 +179,29 @@
                 let header = table.createTHead();
                 let row = header.insertRow(0);
                 let cell1 = row.insertCell(0);
-                let cell3 = row.insertCell(1);
-                let cell4 = row.insertCell(2);
-                let cell2 = row.insertCell(3);
-                let cell5 = row.insertCell(4);
+                let cell2 = row.insertCell(1);
+                let cell5 = row.insertCell(2);
                 cell1.setAttribute("scope", "col");
                 cell2.setAttribute("scope", "col");
-                cell3.setAttribute("scope", "col");
-                cell4.setAttribute("scope", "col");
                 cell5.setAttribute("scope", "col");
                 cell1.innerHTML = "<b>IdPlayer</b>";
-                cell3.innerHTML = "<b>Nombre</b>";
-                cell4.innerHTML = "<b>Apellido</b>";
                 cell2.innerHTML = "<b>Nombre usuario</b>";
                 cell5.innerHTML = "<b>Acciones</b>";
 
                 for (let i = 0; i < array.length; i++) {
                     let row = table.insertRow(i+1);
                     let cell1 = row.insertCell(0);
-                    let cell3 = row.insertCell(1);
-                    let cell4 = row.insertCell(2);
-                    let cell2 = row.insertCell(3);
-                    let cell5 = row.insertCell(4);
-                    cell1.innerHTML = `<b>${array[i].id.idplayer}</b>`;
-                    cell2.innerHTML = array[i].player.users.username;
-                    cell3.innerHTML = array[i].player.users.name;
-                    cell4.innerHTML = array[i].player.users.lastname;
+                    let cell2 = row.insertCell(1);
+                    let cell5 = row.insertCell(2);
+                    cell1.innerHTML = `<b>${array[i].playerid}</b>`;
+                    cell2.innerHTML = array[i].username;
+
                     
                     let span1 = document.createElement("span")
                     let a1 = document.createElement("a");
                     a1.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>'
                     a1.setAttribute("class","cursor-pointer")
-                    a1.href=`/eliminarPlayerSuscription/${id}/${array[i].id.idplayer}`
+                    a1.href=`/eliminarPlayerSuscription/${id}/${array[i].playerid}`
                     
                     span1.appendChild(a1)
                     cell5.appendChild(span1)
@@ -224,7 +215,7 @@
                 if(elem) elem.parentNode.removeChild(elem);
                 
                 let id = tr.children[0].innerHTML
-                let array = [[${playersSusc}]].filter(p => p.suscription.id == id)
+                let array = [[${playersSusc}]].filter(p => p.suscid == id)
                 createSuscriptionPlayersTable(array, id)
             }
             

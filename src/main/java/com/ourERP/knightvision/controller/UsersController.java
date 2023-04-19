@@ -31,12 +31,6 @@ public class UsersController {
     @Autowired
     private IuserService serviceUser;
 
-    @Autowired
-    private IemployerService serviceEmploye;
-
-    @Autowired
-    private IplayerService servicePlayer;
-
     @GetMapping("/registrousers")
     public String irARegistroUsers(Model model) {
         model.addAttribute("nav", "Registro");
@@ -85,4 +79,5 @@ public class UsersController {
         serviceUser.update(user);
         return "redirect:/registrousers";
     }
+
 }
