@@ -10,13 +10,11 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
         <link href="/css/estilos_tablas.css" rel="stylesheet" type="text/css" />
 
-        <!-- MODAL -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 
     </head>
     <body>
-        <header th:include="/navbar.html :: header"> </header>
-        <div class="container-fluid">
+        <header th:include="/navbar.html :: header"></header>
+        <div class="container-fluid text-center">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                 Añadir
             </button>
@@ -59,9 +57,10 @@
                 </table>
             </div>
         </div>
-        <a class="btn btn-primary" href="/verPlayers">Ver Jugadores</a>
-        <a class="btn btn-primary" href="/verEmployers">Ver Empleados</a>
-
+        <div class="container-fluid text-center">
+            <a class="btn btn-primary" href="/verPlayers">Ver Jugadores</a>
+            <a class="btn btn-primary" href="/verEmployers">Ver Empleados</a>
+        </div>
         <!-- Modal -->
         <div class="modal" id="myModal">
             <div class="modal-dialog">

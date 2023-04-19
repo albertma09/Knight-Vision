@@ -48,6 +48,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         } else if (user.getRol() == 2) {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
+        
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())

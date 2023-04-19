@@ -12,7 +12,7 @@
         <header th:insert="/navbar.html :: header"> </header>
         <div class="container-fluid">
             <div class="text-end">
-                <button type="button" class="btn btn-primary" onclick="vaciarModal()" data-toggle="modal" data-target="#myModal">
+                <button type="button" class="btn btn-primary" onclick="vaciarModal()" data-toggle="modal" data-target="#myModal" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                     Añadir
                 </button>
             </div>
