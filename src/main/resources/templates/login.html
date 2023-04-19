@@ -10,7 +10,7 @@
             alert("Usuario o contraseña incorrectos");
         </script>
         <div class="d-flex flex-column justify-content-center">
-            <img src="/img/logo.png" alt="Logo" th:src="@{/img/logo.png}" id="img" class="mx-auto" style="width: 150px; height: 150px;">
+            <img src="/img/logo.png" alt="Logo" th:src="@{/img/logo.png}" id="img" class="mx-auto">
             <div class="my-4">
                 <form method="POST" th:action="@{/login}" th:object="${user}" class="text-center">
                     <div class="mb-3">
