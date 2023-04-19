@@ -5,10 +5,15 @@
 package com.ourERP.knightvision.controller;
 
 import com.ourERP.knightvision.service.UserDetailsServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +27,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
 
-      @Autowired
+    @Autowired
     private UserDetailsServiceImpl userService;
-      
+
     @GetMapping("/login")
     public String login(Model model) {
         // Agregar una variable de modelo para mostrar un mensaje de error
@@ -36,16 +41,30 @@ public class LoginController {
     public String home() {
         return "home";
     }
-    
+
     @PostMapping("/login")
     public String login(@ModelAttribute("user") User user, HttpSession session, Model model) {
         User oauthUser = (User) userService.loadUserByUsername(user.getUsername());
         if (Objects.nonNull(oauthUser)) {
             session.setAttribute("user", oauthUser);
-            return "redirect:/home";
+            return "redirect:/cuentas";
         } else {
             model.addAttribute("error", true); // Agrega el atributo de error con valor true
             return "login";
         }
+    }
+    
+    @GetMapping("/logout")
+    public String logout() {
+        return "logout";
+    }
+    
+     @PostMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
     }
 }

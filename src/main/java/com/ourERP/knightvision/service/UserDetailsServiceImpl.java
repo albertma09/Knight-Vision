@@ -8,10 +8,8 @@ import clases.usuario.User;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -38,15 +36,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        usuariDAO.save(user);
-        UserDetails userDetails = loadUserByUsername(user.getUsername());
-        SecurityContextHolder.getContext().setAuthentication(
-        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities())
-        );
-    }
-
     @Override
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -59,6 +48,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         } else if (user.getRol() == 2) {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
+        
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())

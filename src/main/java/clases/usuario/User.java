@@ -1,6 +1,5 @@
 package clases.usuario;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,24 +17,19 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "users")
-public class User implements Serializable{
-    
-    private static final long serialVersionUID=1L;
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int userid;
 
     private String username;
 
-    private String dni;
-
     private String name;
 
     private String lastname;
-
-    private String phonenumber;
 
     private String password;
 
@@ -43,12 +37,20 @@ public class User implements Serializable{
 
     private Integer rol;
 
-    @OneToOne
-    @JoinColumn(name = "employer_id")
-    private Employer employer;
-
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    @JoinColumn(name = "iduser", referencedColumnName = "userid")
+    @OneToOne(mappedBy = "users")
     private Player player;
 
-}
+    @JoinColumn(name = "iduser", referencedColumnName = "userid")
+    @OneToOne(mappedBy = "users")
+    private Employer employer;
 
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
+
+    public int getUserid() {
+        return this.userid;
+    }
+
+}

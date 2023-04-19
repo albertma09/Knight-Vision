@@ -32,11 +32,39 @@ public class Employer implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY) //defineix que el id és autogenerat per la base de dades i és de tipus AI (autoincrement)
     private int Employeid;
     
+    private String username;
+    
     private float salary;
     
     private String type;
 
     @OneToOne
-    @JoinColumn(name = "iduser")
+    @JoinColumn(name = "iduser", referencedColumnName = "userid")
     private User users;
+    
+   public User getUser() {
+        return this.users;
+    }
+
+    public void setUser(User user) {
+        this.users = user;
+        if (user != null) {
+            this.users.getUserid();
+        }
+    }
+
+    public int getUserid() {
+        if (this.users != null) {
+            return this.users.getUserid();
+        } else {
+            return 0;
+        }
+    }
+
+    public void setIduser(int iduser) {
+        if (this.users != null) {
+            this.users.setUserid(iduser);
+        }
+    }
+    
 }

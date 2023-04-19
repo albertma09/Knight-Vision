@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>nav</title>
+</head>
+<body>
+<div th:fragment="header">
+    <nav class="navbar" style="background-color: #576787;">
+        <div class="container-fluid">
+            <button class="menu-btn d-flex align-items-center" onclick="toggleMenu()" style="width: 130px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list me-2" viewBox="0 0 16 16" style="color: white;">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+                <span style="width: 80px; color: white;"  th:text="${nav}"></span>
+            </button>
+            
+        </div>
+    </nav>
+
+
+    <div class="abierto">
+        <ul class="menu">
+            <li th:if="${#authorization.expression('isAuthenticated()') and #authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a href="/registrousers">Registro Usuarios</a></li>
+            <li th:if="${#authorization.expression('isAuthenticated()') and #authorization.expression('hasRole(''ROLE_USER'')')}"><a href="/players">Players</a></li>
+            <li><a href="/contabilidad">Contabilidad</a></li>
+            <li><a href="/eventos">Eventos</a></li>
+            <li><a href="/suscriptions">Suscripción</a></li>
+            <li class="linea"><a href="/informacion">Información</a></li>
+            <li><a href="/home">Inicio</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+
+    </div>
+    <script src="/js/menu.js" type="text/javascript"></script>
+</div>
+</body>
+</html>

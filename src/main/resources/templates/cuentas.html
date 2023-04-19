@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmls:th="http://www.thymeleaf.org">
+    <head>
+        <title>Cuentas</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/css/estilos_tablas.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script type="text/javascript" th:src="@{js/menu_1.js}" src="js/menu_1.js"></script>
+
+    </head>
+    <body>
+        <header th:insert="~{/navbar.html :: header}"> </header>
+        </br>
+
+        <div class="container-fluid">
+            <a th:href="@{/anexarCuenta}" class="btn btn-primary" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"> Añadir Cuenta </a>
+
+        </div>
+        </br>
+
+        <div th:if="${cuentas != null and !cuentas.empty}" class="container-fluid">
+            <table class="table table-striped">
+                <tr>
+                    <th>id cuenta </th>
+                    <th>banco </th>
+                    <th>número de cuenta </th>
+                    <th>capital </th>
+                    <th>Cambiar</th>
+                    <th th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Borrar </th>
+                </tr>    
+                <tr th:each="cuenta: ${cuentas}">
+                    <td th:text="${cuenta.bankaccountid}"> Muestra id </td> 
+                    <td th:text="${cuenta.bank}"> Muestra banco </td>
+                    <td th:text="${cuenta.accountnumber}"> Muestra número de cuenta </td>
+                    <td th:text="${cuenta.panoja}"> Muestra efectivo </td>
+                    <td> <a th:href="@{/cambiarCuenta/} + ${cuenta.bankaccountid}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                            </svg></a>
+                    </td><!-- comment -->
+                    <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"> <a th:href="@{/borrarCuenta/} + ${cuenta.bankaccountid}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            </svg></a>
+                    </td><!-- comment -->
+
+                </tr>
+            </table>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Cabecera del modal -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Añadir cuenta</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Cuerpo del modal -->
+                    <div class="modal-body">
+                        <form th:action="@{/salvar}" method="post" th:object="${cuenta}">
+                            <div class="form-group">
+                                <label for="nombre">Banco:</label>
+                                <input type="text" name="bank" class="form-control" id="banco">
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo">Número de cuenta:</label>
+                                <input type="text" name="accountnumber" class="form-control" id="numero">
+                                <input type="submit" name="salvar" class="btn btn-primary" value="Guardar"/>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Pie del modal -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" name="salvar" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--#Modal form for user update-->
+        <div class="myFormUpdate" id="updateModal">
+            <form th:action="@{/save}" method="post">
+                <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="updateModalLabel">Update User</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="alert alert-info">
+                                    Input data to the fields
+                                </p>
+                                <div class="form-group">
+                                    <!--<label for="id" class="col-form-label">User id:</th:text></label>-->
+                                    <input type="hidden" class="form-control" id="bankaccountid" name="bankaccountid" value=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bank" class="col-form-label">Banco:</label>
+                                    <input type="text" class="form-control" id="bank" name="bank" value=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountnumber" class="col-form-label">Número de cuenta:</label>
+                                    <input type="text" class="form-control" id="accountnumber" name="accountnumber" value=""/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Save"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--End update form-->
+
+    </body>
+</html>
